@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ScoreMore Academy - Maths &amp; Science Coaching in Noida</title>
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <style>
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #0f3080 50%, #1a50c8 100%);
+      color: white;
+      padding: 74px 28px 96px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      top: -60px;
+      right: -60px;
+      width: 420px;
+      height: 420px;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .hero::after {
+      bottom: -100px;
+      left: -80px;
+      width: 500px;
+      height: 500px;
+      background: rgba(245,166,35,0.07);
+    }
+
+    .hero-inner {
+      max-width: 880px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(245,166,35,0.2);
+      border: 1px solid rgba(245,166,35,0.4);
+      color: var(--gold-light);
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 11px;
+      border-radius: 100px;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      color: white;
+      font-size: 3.2rem;
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+
+    .hero-copy p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.7;
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .hero-actions .btn-outline {
+      color: white;
+    }
+
+    .hero-card {
+      background: white;
+      color: var(--text);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.25);
+    }
+
+    .tutor-photo {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #e0eaff, #d4e4ff);
+      overflow: hidden;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.8rem;
+      color: var(--navy);
+      font-weight: 800;
+    }
+
+    .tutor-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-card h3 {
+      font-size: 1.1rem;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .hero-card .sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .stat-box {
+      background: var(--paper);
+      border-radius: 12px;
+      padding: 12px 10px;
+      text-align: center;
+    }
+
+    .stat-box .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: var(--blue);
+    }
+
+    .stat-box .lbl {
+      font-size: 0.68rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .strip {
+      background: var(--gold);
+      color: var(--navy);
+      text-align: center;
+      padding: 12px 20px;
+      font-weight: 700;
+      font-size: 0.88rem;
+    }
+
+    .pills-row {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      padding: 16px 28px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 7px 16px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .pill .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--blue);
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .why-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .why-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+    }
+
+    .why-icon {
+      font-size: 1.7rem;
+      margin-bottom: 12px;
+    }
+
+    .why-card h3 {
+      color: var(--navy);
+      font-size: 0.98rem;
+      margin-bottom: 8px;
+    }
+
+    .why-card p {
+      font-size: 0.84rem;
+    }
+
+    @media (max-width: 800px) {
+      .hero {
+        padding: 48px 18px 58px;
+      }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .hero-card {
+        display: none;
+      }
+
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .why-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .pills-row {
+        padding: 14px 18px;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .why-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="topbar"></div>
+  <div id="navbar"></div>
+
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <div class="hero-badge">Noida's Trusted Coaching - Since 2004</div>
+        <h1>Where Students<br/>Learn to <em>Excel</em><br/>in Maths &amp; Science</h1>
+        <p>Expert coaching for Classes 5-12 by Mrs. Sona Kumar - 20+ years of transforming students into top scorers. Small batches, deep concepts, real results.</p>
+        <div class="hero-actions">
+          <a href="enroll.html" class="btn btn-primary btn-lg">Enroll Today</a>
+          <a href="courses.html" class="btn btn-outline btn-lg">View Courses</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="tutor-photo">SK</div>
+        <h3>Mrs. Sona Kumar</h3>
+        <div class="sub">Lead Educator &amp; Founder</div>
+        <div class="stat-grid">
+          <div class="stat-box"><div class="num">20+</div><div class="lbl">Yrs Exp.</div></div>
+          <div class="stat-box"><div class="num">500+</div><div class="lbl">Students</div></div>
+          <div class="stat-box"><div class="num">95%</div><div class="lbl">Score Up</div></div>
+          <div class="stat-box"><div class="num">6</div><div class="lbl">Days/Week</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="strip">Limited Seats Available for New Batches - Enroll Now and Secure Your Spot.</div>
+
+  <div class="pills-row">
+    <div class="pill"><span class="dot"></span>Class 5-10: Maths &amp; Science</div>
+    <div class="pill"><span class="dot"></span>Class 11-12: Mathematics</div>
+    <div class="pill"><span class="dot"></span>CBSE &amp; ICSE Boards</div>
+    <div class="pill"><span class="dot"></span>Offline &amp; Online Classes</div>
+    <div class="pill"><span class="dot"></span>Small Batches Only</div>
+    <div class="pill"><span class="dot"></span>Mon-Sat, 3:30-8 PM</div>
+  </div>
+
+  <div class="page-wrap">
+    <div class="section-header" style="text-align:center;">
+      <div class="section-label">Why ScoreMore Academy</div>
+      <h2>The ScoreMore Difference</h2>
+      <p style="margin: 0 auto;">A teaching philosophy built on concept clarity, not rote memorisation.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card"><div class="why-icon">Concept</div><h3>Concept-First Teaching</h3><p>Every topic starts from first principles so students genuinely understand, not just memorise.</p></div>
+      <div class="why-card"><div class="why-icon">Focus</div><h3>Small, Focused Batches</h3><p>Deliberately small classes mean every student receives individual attention and guidance.</p></div>
+      <div class="why-card"><div class="why-icon">Practice</div><h3>Rigorous Practice</h3><p>Meticulously crafted assignments and chapter-wise worksheets build real exam readiness.</p></div>
+      <div class="why-card"><div class="why-icon">Results</div><h3>Proven Track Record</h3><p>Hundreds of students have moved from average performance to top percentiles under close guidance.</p></div>
+      <div class="why-card"><div class="why-icon">Flexible</div><h3>Offline &amp; Online</h3><p>Attend in person at the Sector 61 centre or join live from anywhere with the same structure.</p></div>
+      <div class="why-card"><div class="why-icon">Boards</div><h3>Board Exam Mastery</h3><p>Targeted support for board patterns, revision flow, and score-focused preparation.</p></div>
+    </div>
+  </div>
+
+  <div id="footer"></div>
+
+  <script src="../js/nav.js"></script>
+  <script>
+    injectLayout('home');
+  </script>
+</body>
+</html>

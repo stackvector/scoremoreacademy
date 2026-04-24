@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Test Series Dashboard - ScoreMore Academy</title>
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/theme-override.css" />
+  <style>
+    body { background: #f1f5f9; }
+    .auth-screen {
+      min-height: calc(100vh - 120px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    .auth-card,
+    .pending-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--r-2xl);
+      padding: 40px 34px;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+    }
+    .auth-icon,
+    .pending-icon { font-size: 2.4rem; margin-bottom: 16px; color: var(--navy); }
+    .auth-card h2,
+    .pending-card h2 { color: var(--navy); margin-bottom: 10px; font-size: 1.6rem; }
+    .auth-card p,
+    .pending-card p { font-size: 0.9rem; max-width: 340px; margin: 0 auto 22px; }
+    .google-sign-in {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 13px 24px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      width: 100%;
+      justify-content: center;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    .google-sign-in:hover { box-shadow: var(--shadow-md); border-color: #4285f4; }
+    .auth-note { font-size: 0.76rem; color: var(--muted); margin-top: 16px; }
+    .user-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--sky-light);
+      border: 1px solid #bfdbfe;
+      border-radius: 100px;
+      padding: 7px 16px 7px 8px;
+      margin: 8px 0 20px;
+    }
+    .user-chip img {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #dbeafe;
+    }
+    .user-chip .uname { font-size: 0.82rem; font-weight: 600; color: var(--navy); }
+    .sign-out-link {
+      font-size: 0.78rem;
+      color: var(--muted);
+      cursor: pointer;
+      text-decoration: underline;
+      margin-top: 16px;
+      display: inline-block;
+    }
+
+    .dash-layout {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 36px 28px;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+    .dash-sidebar {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      position: sticky;
+      top: 88px;
+    }
+    .sidebar-header {
+      background: var(--navy);
+      color: white;
+      padding: 18px 20px;
+    }
+    .sidebar-header h4 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+    .sidebar-header p { font-size: 0.74rem; opacity: 0.72; margin: 0; }
+    .sidebar-menu { padding: 10px; }
+    .class-btn {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 10px 14px;
+      border-radius: var(--r-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.83rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: default;
+      background: var(--navy);
+      color: white;
+    }
+    .user-panel {
+      border-top: 1px solid var(--border);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .user-panel img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #dbeafe;
+      flex-shrink: 0;
+    }
+    .user-panel .uname { font-size: 0.78rem; font-weight: 600; color: var(--navy); }
+    .user-panel .usign { font-size: 0.68rem; color: var(--muted); cursor: pointer; }
+    .user-panel .usign:hover { color: var(--error); }
+
+    .dash-header {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      padding: 22px 26px;
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .dash-header h2 { font-size: 1.3rem; color: var(--navy); }
+    .dash-header p { font-size: 0.8rem; margin: 2px 0 0; }
+    .subject-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+    .subj-tab {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 8px 18px;
+      border: 1.5px solid var(--border);
+      border-radius: 100px;
+      background: white;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .subj-tab.active,
+    .subj-tab:hover {
+      background: var(--navy);
+      color: white;
+      border-color: var(--navy);
+    }
+
+    .pdf-list { display: flex; flex-direction: column; gap: 10px; }
+    .pdf-item {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: box-shadow 0.18s;
+      flex-wrap: wrap;
+    }
+    .pdf-item:hover { box-shadow: var(--shadow-md); }
+    .pdf-icon {
+      width: 40px;
+      height: 40px;
+      background: #fee2e2;
+      border-radius: var(--r-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: #991b1b;
+      flex-shrink: 0;
+    }
+    .pdf-info { flex: 1; min-width: 240px; }
+    .pdf-title { font-weight: 600; font-size: 0.9rem; color: var(--navy); margin-bottom: 3px; }
+    .pdf-meta { font-size: 0.73rem; color: var(--muted); display: flex; gap: 12px; flex-wrap: wrap; }
+    .pdf-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .pdf-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: var(--r-sm);
+      border: 1.5px solid var(--border);
+      background: white;
+      color: var(--text);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.18s;
+    }
+    .pdf-btn:hover { background: var(--navy); color: white; border-color: var(--navy); }
+    .pdf-btn.primary { background: var(--blue); color: white; border-color: var(--blue); }
+    .pdf-btn.primary:hover { background: var(--navy); border-color: var(--navy); }
+    .pdf-btn.locked {
+      background: #f8fafc;
+      color: var(--muted);
+      border-color: var(--border);
+      cursor: not-allowed;
+    }
+    .pdf-btn.locked:hover {
+      background: #f8fafc;
+      color: var(--muted);
+      border-color: var(--border);
+    }
+    .loading-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid var(--border);
+      border-top-color: var(--blue);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin: 0 auto 14px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .empty-state {
+      text-align: center;
+      padding: 50px 20px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+    }
+    .empty-state .empty-icon { font-size: 1rem; font-weight: 800; color: var(--blue); margin-bottom: 12px; }
+    .empty-state h4 { color: var(--navy); margin-bottom: 6px; }
+    .empty-state p { font-size: 0.84rem; }
+
+    @media (max-width: 760px) {
+      .dash-layout { grid-template-columns: 1fr; }
+      .dash-sidebar { position: static; }
+      .auth-card, .pending-card { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="topbar"></div>
+  <div id="navbar"></div>
+
+  <div id="stateLoading" class="auth-screen" style="display:none;">
+    <div class="auth-card">
+      <div class="auth-icon">SM</div>
+      <h2>Checking access</h2>
+      <p>Connecting to Firebase and checking whether this Google account is approved for the test series dashboard.</p>
+      <div class="loading-state" style="padding: 12px 0 0;">
+        <div class="spinner"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="stateSignIn" class="auth-screen">
+    <div class="auth-card">
+      <div class="auth-icon">GO</div>
+      <h2>Test Series Access</h2>
+      <p>Sign in with Google to access your chapter-wise test papers and answer-key permissions.</p>
+      <button class="google-sign-in" id="googleSignInBtn" type="button">
+        <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Continue with Google
+      </button>
+      <div class="auth-note">No access yet? Complete payment on WhatsApp and then you can be approved manually.</div>
+    </div>
+  </div>
+
+  <div id="statePending" class="auth-screen" style="display:none;">
+    <div class="pending-card">
+      <div class="pending-icon">PA</div>
+      <h2>Access Pending</h2>
+      <p>This Google account is signed in, but access is not approved yet.</p>
+      <div class="user-chip">
+        <img id="pendingPhoto" src="" alt="" />
+        <div class="uname" id="pendingName"></div>
+      </div>
+      <a href="https://wa.me/919212395639?text=Hi%2C%20I%20have%20signed%20in%20to%20the%20ScoreMore%20dashboard%20and%20need%20my%20test-series%20access%20approved." target="_blank" rel="noreferrer" class="btn btn-wa btn-lg">WhatsApp to complete access</a>
+      <span class="sign-out-link" id="pendingSignOut">Sign out</span>
+    </div>
+  </div>
+
+  <div id="stateDashboard" style="display:none;">
+    <div class="dash-layout">
+      <div class="dash-sidebar">
+        <div class="sidebar-header">
+          <h4>Test Series</h4>
+          <p>Your assigned class</p>
+        </div>
+        <div class="sidebar-menu" id="classMenu"></div>
+        <div class="user-panel">
+          <img id="dashUserPhoto" src="" alt="" />
+          <div>
+            <div class="uname" id="dashUserName"></div>
+            <div class="usign" id="dashSignOut">Sign out</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dash-main">
+        <div class="dash-header">
+          <div>
+            <h2 id="dashClassTitle">Your Test Series</h2>
+            <p id="dashClassSub">Choose a subject below to see chapter-wise PDFs.</p>
+          </div>
+          <span class="tag tag-green">Access Approved</span>
+        </div>
+
+        <div class="subject-tabs" id="subjectTabs" style="display:none;"></div>
+
+        <div id="pdfContainer">
+          <div class="empty-state">
+            <div class="empty-icon">PDF</div>
+            <h4>Waiting for class data</h4>
+            <p>Once your approved class loads, subjects and chapter papers will appear here.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer"></div>
+
+  <script src="../js/nav.js"></script>
+  <script type="module" src="../js/dashboard.js"></script>
+  <script>injectLayout('test-series');</script>
+</body>
+</html>

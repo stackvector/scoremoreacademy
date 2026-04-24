@@ -1,0 +1,197 @@
+/* ─── LAYOUT.CSS — Topbar, Navbar, Footer ─── */
+
+/* ── Topbar ── */
+.topbar {
+  background: var(--navy);
+  color: rgba(255,255,255,0.55);
+  font-size: 0.76rem;
+  padding: 7px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.topbar a { color: var(--gold); text-decoration: none; }
+.topbar a:hover { text-decoration: underline; }
+.topbar-left, .topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* ── Navbar ── */
+.navbar {
+  background: var(--white);
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  box-shadow: 0 1px 0 var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  height: 68px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.brand-icon {
+  width: 44px; height: 44px;
+  background: var(--navy);
+  border-radius: var(--r-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+.brand-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--navy);
+  line-height: 1.1;
+}
+.brand-name span { color: var(--gold); }
+.brand-sub {
+  font-size: 0.65rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 400;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  list-style: none;
+}
+.nav-links a {
+  display: block;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.83rem;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: var(--r-sm);
+  transition: background 0.18s, color 0.18s;
+  white-space: nowrap;
+}
+.nav-links a:hover,
+.nav-links a.active {
+  background: var(--sky-light);
+  color: var(--blue);
+}
+.nav-links .nav-enroll a {
+  background: var(--gold);
+  color: var(--navy);
+  font-weight: 700;
+  margin-left: 6px;
+}
+.nav-links .nav-enroll a:hover {
+  background: var(--gold-dark);
+  color: white;
+}
+
+/* Hamburger (mobile) */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  color: var(--navy);
+  font-size: 1.4rem;
+}
+
+/* ── Footer ── */
+footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.5);
+  padding: 48px 32px 28px;
+}
+.footer-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 36px;
+}
+.footer-brand .brand-name { color: white; font-size: 1.1rem; margin-bottom: 10px; }
+.footer-brand p { font-size: 0.82rem; line-height: 1.7; max-width: 260px; }
+footer h4 {
+  color: white;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 14px;
+}
+footer ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+footer ul a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.84rem; transition: color 0.2s; }
+footer ul a:hover { color: var(--gold); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.76rem;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.footer-bottom em { color: rgba(255,255,255,0.35); font-style: italic; }
+
+/* ── Floating WA ── */
+.wa-float {
+  position: fixed;
+  bottom: 26px; right: 26px;
+  width: 54px; height: 54px;
+  background: #25d366;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+  text-decoration: none;
+  z-index: 800;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.wa-float:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,0.7); }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .navbar { padding: 0 18px; }
+  .nav-toggle { display: block; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 68px; left: 0; right: 0;
+    background: white;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px 18px 18px;
+    box-shadow: var(--shadow-lg);
+    gap: 2px;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a { padding: 11px 14px; }
+  .nav-links .nav-enroll { margin-top: 8px; }
+  .nav-links .nav-enroll a { text-align: center; }
+  .topbar { display: none; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .footer-inner { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Test Series – ScoreMore Academy</title>
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/theme-override.css" />
+  <style>
+    /* ── Hero ── */
+    .page-hero {
+      background: linear-gradient(140deg, #0a1f4e 0%, #1a3a7c 50%, #1d4ed8 100%);
+      color: white;
+      padding: 60px 32px 70px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '📄';
+      position: absolute;
+      font-size: 18rem;
+      opacity: 0.04;
+      top: -40px; right: -40px;
+      pointer-events: none;
+    }
+    .page-hero h1 { color: white; margin-bottom: 14px; }
+    .page-hero .lead { color: rgba(255,255,255,0.75); font-size: 1.05rem; max-width: 560px; margin: 0 auto 32px; }
+    .hero-chips { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 32px; }
+    .hero-chip {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 100px;
+    }
+    .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* ── What is Test Series ── */
+    .what-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      margin-bottom: var(--sp-xl);
+    }
+    .what-visual {
+      background: linear-gradient(135deg, var(--navy), #1a50c8);
+      border-radius: var(--r-2xl);
+      padding: 40px 32px;
+      color: white;
+      text-align: center;
+    }
+    .what-visual .big-icon { font-size: 4rem; margin-bottom: 16px; }
+    .what-visual h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 10px; }
+    .what-visual p  { opacity: 0.75; font-size: 0.87rem; line-height: 1.7; }
+
+    .timeline { list-style: none; display: flex; flex-direction: column; gap: 18px; }
+    .tl-item  { display: flex; gap: 16px; align-items: flex-start; }
+    .tl-num   {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--sky-light); color: var(--blue);
+      font-weight: 700; font-size: 0.85rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .tl-text h4 { font-size: 0.92rem; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+    .tl-text p  { font-size: 0.81rem; margin: 0; }
+
+    /* ── Benefits grid ── */
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-bottom: var(--sp-xl);
+    }
+    .benefit-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 22px;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .benefit-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .benefit-icon { font-size: 1.6rem; margin-bottom: 10px; }
+    .benefit-card h4 { font-size: 0.9rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .benefit-card p  { font-size: 0.8rem; }
+
+    /* ── Pricing ── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: var(--sp-xl);
+    }
+    .price-card {
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-xl);
+      padding: 28px 24px;
+      text-align: center;
+      position: relative;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .price-card.popular {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 4px rgba(26,80,200,0.08);
+    }
+    .popular-badge {
+      position: absolute;
+      top: -12px; left: 50%;
+      transform: translateX(-50%);
+      background: var(--blue);
+      color: white;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 100px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .price-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+    .price-tier { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .price-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--navy); margin-bottom: 16px; }
+    .price-amount {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6rem;
+      font-weight: 900;
+      color: var(--navy);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .price-amount .currency { font-size: 1.2rem; vertical-align: super; }
+    .price-amount .placeholder {
+      font-size: 1.4rem;
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+    }
+    .price-period { font-size: 0.75rem; color: var(--muted); margin-bottom: 20px; }
+    .price-features { list-style: none; text-align: left; display: flex; flex-direction: column; gap: 9px; margin-bottom: 24px; }
+    .price-features li {
+      font-size: 0.82rem; color: var(--text);
+      display: flex; align-items: center; gap: 9px;
+    }
+    .price-features li::before { content: '✓'; color: var(--success); font-weight: 700; }
+
+    /* ── How to Access ── */
+    .access-flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      margin-bottom: var(--sp-xl);
+    }
+    .flow-step {
+      padding: 28px 22px;
+      text-align: center;
+      position: relative;
+    }
+    .flow-step:not(:last-child)::after {
+      content: '→';
+      position: absolute;
+      right: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 1.1rem;
+      z-index: 2;
+    }
+    .flow-step:not(:last-child) { border-right: 1px solid var(--border); }
+    .flow-icon { font-size: 1.8rem; margin-bottom: 10px; }
+    .flow-step h4 { font-size: 0.88rem; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
+    .flow-step p  { font-size: 0.76rem; }
+
+    @media (max-width: 860px) {
+      .what-grid, .pricing-grid { grid-template-columns: 1fr; }
+      .benefits-grid { grid-template-columns: 1fr 1fr; }
+      .access-flow { grid-template-columns: 1fr 1fr; }
+      .flow-step:nth-child(2)::after,
+      .flow-step:nth-child(4)::after { display: none; }
+      .flow-step:nth-child(2) { border-right: none; }
+    }
+    @media (max-width: 560px) {
+      .benefits-grid { grid-template-columns: 1fr; }
+      .access-flow { grid-template-columns: 1fr; }
+      .flow-step::after { display: none !important; }
+      .flow-step { border-right: none !important; border-bottom: 1px solid var(--border); }
+    }
+  </style>
+</head>
+<body class="page-test-series">
+  <div id="topbar"></div>
+  <div id="navbar"></div>
+
+  <div class="page-hero">
+    <div class="section-label" style="color:rgba(255,255,255,0.5); margin-bottom:14px;">Structured Practice</div>
+    <h1>ScoreMore Test Series</h1>
+    <div class="lead">Chapter-wise, subject-wise PDF test papers — designed to build exam confidence week by week. Practice with purpose.</div>
+    <div class="hero-chips">
+      <span class="hero-chip">📄 Chapter-wise PDFs</span>
+      <span class="hero-chip">🗓️ Weekly Releases</span>
+      <span class="hero-chip">📚 Class 5–12</span>
+      <span class="hero-chip">CBSE · ICSE · IB</span>
+      <span class="hero-chip">🔒 Gated Access</span>
+    </div>
+    <div class="hero-actions">
+      <a href="dashboard.html" class="btn btn-primary btn-lg">🔓 Access Dashboard</a>
+      <a href="https://wa.me/919212395639?text=Hi%2C%20I%27m%20interested%20in%20the%20ScoreMore%20Test%20Series.%20Please%20share%20pricing%20and%20details." target="_blank" class="btn btn-outline btn-lg">💬 Ask on WhatsApp</a>
+    </div>
+  </div>
+
+  <div class="page-wrap">
+
+    <!-- WHAT IS IT -->
+    <div class="what-grid">
+      <div class="what-visual">
+        <div class="big-icon">📋</div>
+        <h3>Weekly Chapter-wise Tests</h3>
+        <p>Curated PDF test papers released every week — one chapter at a time — so students build deep chapter mastery before moving on.</p>
+      </div>
+      <div>
+        <div class="section-label">How It Works</div>
+        <h2 style="font-size:1.7rem; margin-bottom:24px;">Systematic, Not Random</h2>
+        <ul class="timeline">
+          <li class="tl-item"><div class="tl-num">1</div><div class="tl-text"><h4>Choose Your Class &amp; Subject</h4><p>Access papers organised by Class → Subject → Chapter in your dashboard.</p></div></li>
+          <li class="tl-item"><div class="tl-num">2</div><div class="tl-text"><h4>Download &amp; Attempt</h4><p>Print or solve on screen. Each paper is timed and difficulty-labelled.</p></div></li>
+          <li class="tl-item"><div class="tl-num">3</div><div class="tl-text"><h4>Check Answer Keys</h4><p>Detailed solutions included with every paper so students learn from mistakes.</p></div></li>
+          <li class="tl-item"><div class="tl-num">4</div><div class="tl-text"><h4>New Papers Every Week</h4><p>Fresh papers released weekly to keep pace with your school syllabus.</p></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- BENEFITS -->
+    <div class="section-header">
+      <div class="section-label">Why Use It</div>
+      <h2>Built to Build Confidence</h2>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-card"><div class="benefit-icon">📐</div><h4>Chapter-by-Chapter Mastery</h4><p>Each paper tests one chapter deeply — no skipping around. Build solid foundations.</p></div>
+      <div class="benefit-card"><div class="benefit-icon">⏱️</div><h4>Timed Under Exam Conditions</h4><p>Practise with real time pressure so board exams feel familiar, not frightening.</p></div>
+      <div class="benefit-card"><div class="benefit-icon">✅</div><h4>Detailed Answer Keys</h4><p>Every paper comes with step-by-step solutions — understand every mark lost.</p></div>
+      <div class="benefit-card"><div class="benefit-icon">📅</div><h4>Weekly Fresh Content</h4><p>New papers released every week, synced to the CBSE/ICSE/IB academic calendar.</p></div>
+      <div class="benefit-card"><div class="benefit-icon">🎯</div><h4>Board-Pattern Aligned</h4><p>Papers mirror actual board exam formats — question types, marks weightage, and style.</p></div>
+      <div class="benefit-card"><div class="benefit-icon">📱</div><h4>Access Anywhere</h4><p>Download and solve on any device — phone, tablet, or laptop. Your dashboard, your pace.</p></div>
+    </div>
+
+    <!-- PRICING -->
+    <div class="section-header">
+      <div class="section-label">Plans</div>
+      <h2>Simple, Transparent Pricing</h2>
+      <p>Pay once, access your tier for the full academic year. All payments processed manually via WhatsApp.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-tier">Starter</div>
+        <div class="price-name">Single Subject</div>
+        <div class="price-amount"><span class="currency">₹</span><span class="placeholder">____</span></div>
+        <div class="price-period">per year · one subject</div>
+        <ul class="price-features">
+          <li>1 subject of your choice</li>
+          <li>All chapters for that subject</li>
+          <li>Weekly new papers</li>
+          <li>Answer keys included</li>
+          <li>1 class (e.g. Class 10)</li>
+        </ul>
+        <a href="https://wa.me/919212395639?text=Hi%2C%20I%27m%20interested%20in%20the%20Starter%20Test%20Series%20plan." target="_blank" class="btn btn-outline-dark" style="width:100%; justify-content:center;">Get Access</a>
+      </div>
+
+      <div class="price-card popular">
+        <div class="popular-badge">Most Popular</div>
+        <div class="price-tier">Full Subject</div>
+        <div class="price-name">All Subjects</div>
+        <div class="price-amount"><span class="currency">₹</span><span class="placeholder">____</span></div>
+        <div class="price-period">per year · all subjects</div>
+        <ul class="price-features">
+          <li>All subjects — Maths + Science</li>
+          <li>All chapters across subjects</li>
+          <li>Weekly new papers</li>
+          <li>Answer keys included</li>
+          <li>1 class level</li>
+        </ul>
+        <a href="https://wa.me/919212395639?text=Hi%2C%20I%27m%20interested%20in%20the%20Full%20Subject%20Test%20Series%20plan." target="_blank" class="btn btn-dark" style="width:100%; justify-content:center;">Get Access</a>
+      </div>
+
+      <div class="price-card">
+        <div class="price-tier">Premium</div>
+        <div class="price-name">Multi-Year Bundle</div>
+        <div class="price-amount"><span class="currency">₹</span><span class="placeholder">____</span></div>
+        <div class="price-period">2 years · all subjects</div>
+        <ul class="price-features">
+          <li>Everything in Full Subject</li>
+          <li>2 academic years access</li>
+          <li>Access across class levels</li>
+          <li>Priority WhatsApp support</li>
+          <li>Best value</li>
+        </ul>
+        <a href="https://wa.me/919212395639?text=Hi%2C%20I%27m%20interested%20in%20the%20Premium%20Test%20Series%20bundle." target="_blank" class="btn btn-outline-dark" style="width:100%; justify-content:center;">Get Access</a>
+      </div>
+    </div>
+
+    <!-- HOW TO ACCESS -->
+    <div class="section-header">
+      <div class="section-label">Getting Access</div>
+      <h2>4 Simple Steps</h2>
+    </div>
+    <div class="access-flow">
+      <div class="flow-step">
+        <div class="flow-icon">💬</div>
+        <h4>1. WhatsApp Us</h4>
+        <p>Click any "Get Access" button to send us a pre-filled WhatsApp message.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-icon">💳</div>
+        <h4>2. Pay Manually</h4>
+        <p>We'll share payment details (UPI / bank transfer). No online checkout.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-icon">✅</div>
+        <h4>3. We Approve You</h4>
+        <p>Once payment is confirmed, we activate your dashboard access within 24 hours.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-icon">🔓</div>
+        <h4>4. Log In &amp; Access</h4>
+        <p>Sign in to the dashboard with Google — your approved PDFs will be ready.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="footer"></div>
+
+  <script src="../js/nav.js"></script>
+  <script>injectLayout('test-series');</script>
+</body>
+</html>

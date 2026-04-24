@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ScoreMore Academy – Noida's Premier Math & Science Coaching</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --navy: #0a1f4e;
+    --blue: #1a50c8;
+    --sky: #3b82f6;
+    --gold: #f5a623;
+    --gold-light: #fde68a;
+    --cream: #fdfaf4;
+    --white: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --card-bg: #ffffff;
+    --border: #e2e8f0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ─── TOPBAR ─── */
+  .topbar {
+    background: var(--navy);
+    color: #94a3b8;
+    font-size: 0.78rem;
+    padding: 6px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .topbar a { color: var(--gold); text-decoration: none; }
+  .topbar span { display: flex; align-items: center; gap: 6px; }
+
+  /* ─── HEADER ─── */
+  header {
+    background: var(--white);
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    box-shadow: 0 1px 0 var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+  }
+  .brand-icon {
+    width: 50px; height: 50px;
+    background: var(--navy);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+  .brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.45rem;
+    font-weight: 900;
+    color: var(--navy);
+    line-height: 1.1;
+  }
+  .brand-name span { color: var(--gold); }
+  .brand-tagline {
+    font-size: 0.7rem;
+    color: var(--muted);
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  nav { display: flex; align-items: center; gap: 4px; }
+  nav a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  nav a:hover, nav a.active {
+    background: var(--blue);
+    color: white;
+  }
+  .nav-cta {
+    background: var(--gold) !important;
+    color: var(--navy) !important;
+    font-weight: 700 !important;
+    margin-left: 8px;
+  }
+  .nav-cta:hover { background: #e08f0a !important; }
+
+  /* ─── SECTIONS ─── */
+  section { display: none; }
+  section.active { display: block; }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, #0f3080 50%, #1a50c8 100%);
+    color: white;
+    padding: 80px 40px 100px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; left: -80px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: rgba(245,166,35,0.07);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(245,166,35,0.2);
+    border: 1px solid rgba(245,166,35,0.4);
+    color: var(--gold-light);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.2rem;
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--gold);
+  }
+  .hero p {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.7;
+    margin-bottom: 32px;
+    max-width: 480px;
+  }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy);
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 13px 26px;
+    border-radius: 10px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,166,35,0.4); }
+  .btn-outline {
+    background: transparent;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 13px 26px;
+    border-radius: 10px;
+    border: 2px solid rgba(255,255,255,0.35);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.1); }
+
+  .hero-card {
+    background: white;
+    color: var(--text);
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.25);
+  }
+  .tutor-photo-wrap {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #e0eaff, #d4e4ff);
+    overflow: hidden;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+  }
+  .tutor-photo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 14px;
+  }
+  .hero-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .hero-card p {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .stat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .stat-box {
+    background: var(--cream);
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+  }
+  .stat-box .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--blue);
+  }
+  .stat-box .lbl {
+    font-size: 0.68rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── ANNOUNCEMENT STRIP ─── */
+  .strip {
+    background: var(--gold);
+    color: var(--navy);
+    text-align: center;
+    padding: 12px 20px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.01em;
+  }
+
+  /* ─── FEATURE PILLS ─── */
+  .pills {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 40px;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 8px 18px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .pill .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); }
+
+  /* ─── CONTENT SECTIONS ─── */
+  .page-wrap { max-width: 960px; margin: 0 auto; padding: 60px 30px; }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--navy);
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+  .section-sub {
+    color: var(--muted);
+    font-size: 1rem;
+    max-width: 540px;
+    line-height: 1.7;
+    margin-bottom: 48px;
+  }
+
+  /* ─── ABOUT PAGE ─── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 60px;
+    align-items: start;
+    margin-bottom: 60px;
+  }
+  .about-photo {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    border-radius: 20px;
+    aspect-ratio: 3/4;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 7rem;
+    overflow: hidden;
+  }
+  .about-photo img { width: 100%; height: 100%; object-fit: cover; border-radius: 20px; }
+  .about-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .about-content .role-tag {
+    display: inline-block;
+    background: #dbeafe;
+    color: var(--blue);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .about-content p {
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+  .highlight-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .highlight-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.9rem;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .highlight-list li .check {
+    width: 22px; height: 22px;
+    background: #dbeafe;
+    color: var(--blue);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+  }
+  .value-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .value-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.08); transform: translateY(-4px); }
+  .value-icon { font-size: 1.8rem; margin-bottom: 12px; }
+  .value-card h4 { font-weight: 700; color: var(--navy); margin-bottom: 8px; font-size: 1rem; }
+  .value-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+  /* ─── COURSES PAGE ─── */
+  .courses-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+  .course-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .course-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.1); transform: translateY(-4px); }
+  .course-header {
+    background: var(--navy);
+    color: white;
+    padding: 24px 28px 20px;
+  }
+  .course-header.gold { background: linear-gradient(135deg, #92400e, #c2710c); }
+  .course-grade {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 6px;
+  }
+  .course-header h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+  .course-body { padding: 24px 28px; }
+  .course-subjects {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .subject-tag {
+    background: #eff6ff;
+    color: var(--blue);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: 1px solid #bfdbfe;
+  }
+  .course-features { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .course-features li {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.84rem; color: var(--text);
+  }
+  .course-features li::before { content: '→'; color: var(--blue); font-weight: 700; }
+
+  .schedule-box {
+    background: linear-gradient(135deg, var(--navy), #1a50c8);
+    color: white;
+    border-radius: 20px;
+    padding: 36px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .schedule-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+  }
+  .schedule-box p { opacity: 0.8; font-size: 0.9rem; }
+  .schedule-details { display: flex; gap: 30px; flex-wrap: wrap; }
+  .sched-item { text-align: center; }
+  .sched-item .val { font-size: 1.5rem; font-weight: 700; color: var(--gold); }
+  .sched-item .key { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.7; }
+
+  /* ─── TESTIMONIALS PAGE ─── */
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  .tcard {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    position: relative;
+    transition: box-shadow 0.2s;
+  }
+  .tcard:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+  .tcard .quote-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    line-height: 1;
+    color: #dbeafe;
+    position: absolute;
+    top: 16px; left: 22px;
+  }
+  .tcard p {
+    font-size: 0.9rem;
+    color: var(--text);
+    line-height: 1.75;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 18px;
+    padding-top: 24px;
+  }
+  .tcard .author { font-weight: 700; color: var(--navy); font-size: 0.85rem; }
+  .tcard .school { font-size: 0.78rem; color: var(--muted); }
+  .stars { color: var(--gold); font-size: 0.85rem; margin-bottom: 6px; }
+
+  .google-review-box {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    text-align: center;
+  }
+  .google-review-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .google-review-box p { color: var(--muted); font-size: 0.88rem; margin-bottom: 20px; }
+  .google-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #4285f4;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+  }
+  .google-btn:hover { background: #3367d6; }
+
+  /* ─── CONTACT PAGE ─── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 40px;
+    align-items: start;
+  }
+  .contact-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .contact-info > p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+  .info-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 14px;
+    transition: box-shadow 0.2s;
+  }
+  .info-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
+  .info-icon {
+    width: 40px; height: 40px;
+    background: #eff6ff;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .info-card .label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
+  .info-card .value { font-weight: 600; color: var(--navy); font-size: 0.9rem; }
+  .info-card a { color: var(--blue); text-decoration: none; }
+
+  .map-wrap {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    margin-top: 14px;
+    height: 220px;
+  }
+  .map-wrap iframe { width: 100%; height: 100%; border: none; }
+
+  /* ─── CONTACT FORM ─── */
+  .form-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px;
+  }
+  .form-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .form-card > p {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-bottom: 28px;
+  }
+  .form-group { margin-bottom: 18px; }
+  .form-group label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    color: var(--text);
+    background: var(--cream);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(26,80,200,0.1);
+    background: white;
+  }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .submit-btn {
+    width: 100%;
+    background: var(--navy);
+    color: white;
+    border: none;
+    padding: 13px;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .submit-btn:hover { background: var(--blue); transform: translateY(-1px); }
+  .wa-note {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    padding: 28px 20px;
+    font-size: 0.82rem;
+    line-height: 1.8;
+  }
+  footer strong { color: white; }
+  footer a { color: var(--gold); text-decoration: none; }
+
+  /* ─── FLOATING WHATSAPP ─── */
+  .wa-float {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 56px; height: 56px;
+    background: #25d366;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+    cursor: pointer;
+    text-decoration: none;
+    z-index: 1000;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .wa-float:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,0.7); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    header { padding: 14px 20px; }
+    .brand-name { font-size: 1.1rem; }
+    nav a { padding: 8px 10px; font-size: 0.78rem; }
+    .nav-cta { display: none; }
+    .hero { padding: 50px 20px 60px; }
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-card { display: none; }
+    .hero h1 { font-size: 2.2rem; }
+    .pills { padding: 14px 20px; }
+    .page-wrap { padding: 40px 20px; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .about-photo { aspect-ratio: 1/1; font-size: 5rem; }
+    .values-grid { grid-template-columns: 1fr 1fr; }
+    .courses-grid { grid-template-columns: 1fr; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .schedule-box { flex-direction: column; }
+    .topbar { display: none; }
+    .section-title { font-size: 1.7rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <span>📍 H-48, Royal Garden Estate, Sec 61, Noida</span>
+  <span>📞 <a href="tel:9212395639">9212395639</a> &nbsp;|&nbsp; ✉️ <a href="mailto:info@scoremoreacademy.com">info@scoremoreacademy.com</a></span>
+</div>
+
+<!-- HEADER -->
+<header>
+  <a class="brand" href="javascript:void(0)" onclick="showPage('home')">
+    <div class="brand-icon">🎓</div>
+    <div>
+      <div class="brand-name">Score<span>More</span> Academy</div>
+      <div class="brand-tagline">From Concepts to Confidence</div>
+    </div>
+  </a>
+  <nav>
+    <a href="javascript:void(0)" onclick="showPage('home')">Home</a>
+    <a href="javascript:void(0)" onclick="showPage('about')">About</a>
+    <a href="javascript:void(0)" onclick="showPage('courses')">Courses</a>
+    <a href="javascript:void(0)" onclick="showPage('testimonials')">Results</a>
+    <a href="javascript:void(0)" onclick="showPage('contact')" class="nav-cta">Enroll Now →</a>
+  </nav>
+</header>
+
+<!-- ══════════ HOME PAGE ══════════ -->
+<section id="home">
+  <div class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge">⭐ Noida's Trusted Coaching — Since 2004</div>
+        <h1>Where Students<br/>Learn to <em>Excel</em><br/>in Maths &amp; Science</h1>
+        <p>Expert coaching for Classes 5–12 by Mrs. Sona Kumar — 20+ years of transforming students into top scorers. Small batches, deep concepts, real results.</p>
+        <div class="hero-actions">
+          <a href="javascript:void(0)" onclick="showPage('contact')" class="btn-primary">📋 Enroll Today</a>
+          <a href="javascript:void(0)" onclick="showPage('courses')" class="btn-outline">View Courses →</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="tutor-photo-wrap">
+          <img src="./Sona Image.JPG" alt="Mrs. Sona Kumar" onerror="this.style.display='none'" />
+        </div>
+        <h3>Mrs. Sona Kumar</h3>
+        <p>Lead Educator &amp; Founder</p>
+        <div class="stat-row">
+          <div class="stat-box"><div class="num">20+</div><div class="lbl">Yrs Exp.</div></div>
+          <div class="stat-box"><div class="num">500+</div><div class="lbl">Students</div></div>
+          <div class="stat-box"><div class="num">95%</div><div class="lbl">Score ↑</div></div>
+          <div class="stat-box"><div class="num">6</div><div class="lbl">Days/Week</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="strip">
+    🎯 Limited Seats Available for New Batches — Enroll Now &amp; Secure Your Spot!
+  </div>
+
+  <div class="pills">
+    <div class="pill"><span class="dot"></span> Class 5–10: Maths &amp; Science</div>
+    <div class="pill"><span class="dot"></span> Class 11–12: Mathematics</div>
+    <div class="pill"><span class="dot"></span> CBSE &amp; ICSE Boards</div>
+    <div class="pill"><span class="dot"></span> Offline &amp; Online Classes</div>
+    <div class="pill"><span class="dot"></span> Small Batches Only</div>
+    <div class="pill"><span class="dot"></span> Mon–Sat, 3:30–8 PM</div>
+  </div>
+
+  <div class="page-wrap">
+    <div style="text-align:center; margin-bottom:48px;">
+      <div class="section-label">Why ScoreMore Academy</div>
+      <div class="section-title">The ScoreMore Difference</div>
+      <div class="section-sub" style="margin: 0 auto 0;">A teaching philosophy built on concept clarity, not rote memorization.</div>
+    </div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">🧩</div>
+        <h4>Concept-First Approach</h4>
+        <p>Every topic is taught from first principles so students genuinely understand rather than merely memorize.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">👥</div>
+        <h4>Small, Focused Batches</h4>
+        <p>Deliberately small class sizes ensure every student receives individual attention and guidance.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">📝</div>
+        <h4>Rigorous Practice</h4>
+        <p>Meticulously crafted assignments and worksheets build exam-readiness and genuine mastery.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">📈</div>
+        <h4>Proven Track Record</h4>
+        <p>Hundreds of students have gone from average scores to top percentiles under Mrs. Sona Kumar's guidance.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">💻</div>
+        <h4>Offline &amp; Online</h4>
+        <p>Flexible learning modes — attend in-person at our Noida center or join from home via online classes.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🏆</div>
+        <h4>Board Exam Mastery</h4>
+        <p>Targeted preparation for CBSE and ICSE boards, with special focus on pattern-based exam strategy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ABOUT PAGE ══════════ -->
+<section id="about">
+  <div class="page-wrap">
+    <div class="section-label">Our Story</div>
+    <div class="section-title">About ScoreMore Academy</div>
+    <div class="section-sub">Rooted in Noida, transforming futures across the Delhi-NCR region for over two decades.</div>
+
+    <div class="about-grid">
+      <div class="about-photo">
+        <img src="./Sona Image.JPG" alt="Mrs. Sona Kumar" onerror="this.style.display='none'" />
+      </div>
+      <div class="about-content">
+        <h3>Mrs. Sona Kumar</h3>
+        <span class="role-tag">Founder &amp; Lead Educator · 20+ Years</span>
+        <p>ScoreMore Academy, located in Royal Garden Estate, Sector 61, Noida, is an innovative and result-driven coaching centre renowned for its exceptional Maths and Science education. Led by the esteemed Mrs. Sona Kumar — a veteran educator with over two decades of hands-on classroom expertise — the academy stands as the benchmark of excellence in secondary education.</p>
+        <p>With a relentless focus on concept-building and an unwavering commitment to nurturing a solid academic foundation, ScoreMore Academy prioritizes deep subject understanding over surface-level exam tricks. Through meticulously crafted assignments and worksheets, students benefit from rigorous practice while receiving personalized attention in deliberately small batch sizes.</p>
+        <ul class="highlight-list">
+          <li><span class="check">✓</span> 20+ years of teaching experience with proven outcomes</li>
+          <li><span class="check">✓</span> Hundreds of students placed in top percentiles</li>
+          <li><span class="check">✓</span> Specialized in CBSE and ICSE board preparation</li>
+          <li><span class="check">✓</span> Custom worksheets and assignment-based learning</li>
+          <li><span class="check">✓</span> Flexible offline and online class options</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top: 60px;">
+      <div class="section-label">Our Pillars</div>
+      <div class="section-title" style="font-size: 1.6rem;">What We Stand For</div>
+      <div class="values-grid" style="margin-top: 24px;">
+        <div class="value-card"><div class="value-icon">🎯</div><h4>Clarity Over Cramming</h4><p>We build genuine understanding, not just exam-ready answers.</p></div>
+        <div class="value-card"><div class="value-icon">❤️</div><h4>Every Student Counts</h4><p>No student is left behind — small batches ensure that.</p></div>
+        <div class="value-card"><div class="value-icon">🔬</div><h4>Rigour &amp; Practice</h4><p>Weekly assignments, tests and worksheets keep students sharp.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ COURSES PAGE ══════════ -->
+<section id="courses">
+  <div class="page-wrap">
+    <div class="section-label">What We Offer</div>
+    <div class="section-title">Courses Offered</div>
+    <div class="section-sub">Tailored programs for every stage of secondary education.</div>
+
+    <div class="courses-grid">
+      <div class="course-card">
+        <div class="course-header">
+          <div class="course-grade">Classes 5 – 10</div>
+          <h3>Foundation &amp; Secondary Program</h3>
+        </div>
+        <div class="course-body">
+          <div class="course-subjects">
+            <span class="subject-tag">Mathematics</span>
+            <span class="subject-tag">Physics</span>
+            <span class="subject-tag">Chemistry</span>
+            <span class="subject-tag">Biology</span>
+          </div>
+          <ul class="course-features">
+            <li>Concept-first teaching methodology</li>
+            <li>CBSE &amp; ICSE board curriculum</li>
+            <li>Weekly tests &amp; assignments</li>
+            <li>Chapter-wise worksheet practice</li>
+            <li>Doubt-clearing sessions</li>
+            <li>Regular parent progress updates</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-header gold">
+          <div class="course-grade">Classes 11 – 12</div>
+          <h3>Senior Secondary Maths Program</h3>
+        </div>
+        <div class="course-body">
+          <div class="course-subjects">
+            <span class="subject-tag">Mathematics (CBSE)</span>
+          </div>
+          <ul class="course-features">
+            <li>Advanced board-level preparation</li>
+            <li>Calculus, Algebra, Vectors &amp; more</li>
+            <li>Previous year paper practice</li>
+            <li>Exam strategy &amp; time management</li>
+            <li>Practical application-oriented learning</li>
+            <li>Full syllabus coverage guaranteed</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="schedule-box">
+      <div>
+        <h3>Class Schedule</h3>
+        <p>All batches run Monday to Saturday at our Sector 61 center and online.</p>
+      </div>
+      <div class="schedule-details">
+        <div class="sched-item"><div class="val">Mon–Sat</div><div class="key">Days</div></div>
+        <div class="sched-item"><div class="val">3:30–8 PM</div><div class="key">Timing</div></div>
+        <div class="sched-item"><div class="val">Small</div><div class="key">Batch Size</div></div>
+        <div class="sched-item"><div class="val">Online+</div><div class="key">Offline</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ TESTIMONIALS PAGE ══════════ -->
+<section id="testimonials">
+  <div class="page-wrap">
+    <div class="section-label">Student Stories</div>
+    <div class="section-title">Results That Speak</div>
+    <div class="section-sub">Hear from the students and parents whose lives have been changed at ScoreMore Academy.</div>
+
+    <div class="testimonials-grid">
+      <div class="tcard">
+        <div class="quote-mark">"</div>
+        <div class="stars">★★★★★</div>
+        <p>Sona Ma'am made Maths and Science my favourite subjects. I can see a huge improvement in my marks and I actually enjoy studying now!</p>
+        <div class="author">Aarav</div>
+        <div class="school">DPS Noida</div>
+      </div>
+      <div class="tcard">
+        <div class="quote-mark">"</div>
+        <div class="stars">★★★★★</div>
+        <p>My daughter went from 70% to 93% in Science within one academic year. The regular tests and personal attention made all the difference.</p>
+        <div class="author">Shikha (Parent)</div>
+        <div class="school">AIS Noida</div>
+      </div>
+      <div class="tcard">
+        <div class="quote-mark">"</div>
+        <div class="stars">★★★★★</div>
+        <p>ScoreMore Academy is simply the best choice for serious students. My child's confidence and grades have soared beyond our expectations.</p>
+        <div class="author">Parent</div>
+        <div class="school">AIS Saket</div>
+      </div>
+      <div class="tcard">
+        <div class="quote-mark">"</div>
+        <div class="stars">★★★★★</div>
+        <p>The focus on fundamentals and worksheets helped my son gain real command over Maths and Science. He now solves problems with ease.</p>
+        <div class="author">Mrs. Verma (Parent)</div>
+        <div class="school">Khaitan School</div>
+      </div>
+      <div class="tcard">
+        <div class="quote-mark">"</div>
+        <div class="stars">★★★★★</div>
+        <p>From average to top percentile in one year — I highly recommend Sona Ma'am to any student who is serious about their board results.</p>
+        <div class="author">Kabir</div>
+        <div class="school">Somerville School</div>
+      </div>
+      <div class="tcard" style="display:flex; align-items:center; justify-content:center; background: linear-gradient(135deg, #eff6ff, #dbeafe); border-color: #bfdbfe;">
+        <div style="text-align:center;">
+          <div style="font-size:2.5rem; margin-bottom:12px;">🌟</div>
+          <div style="font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--navy); font-weight:700; margin-bottom:6px;">Join 500+ Students</div>
+          <div style="font-size:0.82rem; color:var(--muted); margin-bottom:18px;">Who have transformed their scores with ScoreMore Academy</div>
+          <a href="javascript:void(0)" onclick="showPage('contact')" class="btn-primary" style="font-size:0.82rem; padding:10px 20px;">Enroll Today</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="google-review-box">
+      <h3>See Our Google Reviews</h3>
+      <p>Read what parents and students across Noida say about their ScoreMore experience.</p>
+      <a href="https://share.google/85BSvqTKMsF8jqGnF" target="_blank" class="google-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        View Google Reviews
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CONTACT PAGE ══════════ -->
+<section id="contact">
+  <div class="page-wrap">
+    <div class="section-label">Get In Touch</div>
+    <div class="section-title">Contact &amp; Enroll</div>
+    <div class="section-sub">Ready to begin your ScoreMore journey? Reach out today.</div>
+
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>We'd Love to Hear From You</h3>
+        <p>Visit us at our Sector 61 Noida center, call us, or fill in the form — we'll get back to you on WhatsApp within hours.</p>
+
+        <div class="info-card">
+          <div class="info-icon">📞</div>
+          <div>
+            <div class="label">Phone / WhatsApp</div>
+            <div class="value"><a href="tel:9212395639">9212395639</a></div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">✉️</div>
+          <div>
+            <div class="label">Email</div>
+            <div class="value"><a href="mailto:info@scoremoreacademy.com">info@scoremoreacademy.com</a></div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">📍</div>
+          <div>
+            <div class="label">Address</div>
+            <div class="value">H-48, Royal Garden Estate<br/>Sector 61, Noida, UP</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">🕐</div>
+          <div>
+            <div class="label">Class Timings</div>
+            <div class="value">Monday – Saturday, 3:30 PM – 8:00 PM</div>
+          </div>
+        </div>
+
+        <div class="map-wrap">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.4201751619275!2d77.39984861519855!3d28.582485988555796!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce4c7eb3e824b%3A0x4abddb165efba83b!2sRoyal%20Garden%20Estate%2C%20Noida%2C%20Uttar%20Pradesh%20201311%2C%20India!5e0!3m2!1sen!2sus!4v1682589638420!5m2!1sen!2sus"
+            allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <h3>Send an Inquiry</h3>
+        <p>Fill in your details and we'll reach out on WhatsApp with all the information you need.</p>
+        <div id="contactForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">First Name *</label>
+              <input type="text" id="fname" placeholder="Your first name" />
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name</label>
+              <input type="text" id="lname" placeholder="Last name" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone / WhatsApp *</label>
+            <input type="tel" id="phone" placeholder="e.g. 9876543210" />
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="your@email.com" />
+          </div>
+          <div class="form-group">
+            <label for="cls">Student's Class *</label>
+            <select id="cls">
+              <option value="" disabled selected>Select class</option>
+              <option value="5th-8th">Class 5th – 8th</option>
+              <option value="9th-10th">Class 9th – 10th</option>
+              <option value="11th-12th">Class 11th – 12th</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="school">School Name</label>
+            <input type="text" id="school" placeholder="Student's school" />
+          </div>
+          <div class="form-group">
+            <label for="msg">Message (Optional)</label>
+            <textarea id="msg" placeholder="Any specific queries or subjects you need help with..."></textarea>
+          </div>
+          <button class="submit-btn" onclick="sendToWhatsApp()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.938 0C5.347 0 0 5.347 0 11.938c0 2.104.553 4.172 1.605 5.988L.057 23.943l6.162-1.617a11.89 11.89 0 005.719 1.457c6.591 0 11.938-5.347 11.938-11.938S18.529 0 11.938 0zm0 21.807a9.855 9.855 0 01-5.021-1.378l-.36-.214-3.728.978.994-3.64-.234-.374a9.872 9.872 0 01-1.515-5.296c0-5.451 4.434-9.883 9.864-9.883 5.43 0 9.864 4.432 9.864 9.883 0 5.451-4.434 9.924-9.864 9.924z"/></svg>
+            Send via WhatsApp
+          </button>
+          <div class="wa-note">
+            🔒 Your inquiry will open WhatsApp. We reply within a few hours.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>ScoreMore Academy</strong><br/>
+  H-48, Royal Garden Estate, Sector 61, Noida &nbsp;|&nbsp; 📞 <a href="tel:9212395639">9212395639</a><br/>
+  <span style="font-size:0.75rem; opacity:0.6;">© 2025 ScoreMore Academy. All rights reserved. &nbsp;|&nbsp; <em>"From Concepts to Confidence – ScoreMore Every Time!"</em></span>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a class="wa-float" href="https://wa.me/919212395639" target="_blank" title="Chat on WhatsApp">💬</a>
+
+<script>
+  function showPage(pageId) {
+    ['home','about','courses','testimonials','contact'].forEach(id => {
+      document.getElementById(id).classList.toggle('active', id === pageId);
+    });
+    document.querySelectorAll('nav a').forEach(a => {
+      const txt = a.textContent.toLowerCase().trim();
+      const match = txt === pageId || (txt === 'results' && pageId === 'testimonials') || (txt === 'enroll now →' && pageId === 'contact');
+      a.classList.toggle('active', match);
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function sendToWhatsApp() {
+    const fname = document.getElementById('fname').value.trim();
+    const lname = document.getElementById('lname').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const cls = document.getElementById('cls').value;
+    const school = document.getElementById('school').value.trim();
+    const msg = document.getElementById('msg').value.trim();
+
+    if (!fname || !phone || !cls) {
+      alert('Please fill in First Name, Phone, and Class before submitting.');
+      return;
+    }
+
+    const name = (fname + ' ' + lname).trim();
+    let text = `🎓 *New ScoreMore Academy Inquiry*\n\n`;
+    text += `👤 *Name:* ${name}\n`;
+    text += `📞 *Phone:* ${phone}\n`;
+    if (email) text += `✉️ *Email:* ${email}\n`;
+    text += `📚 *Class:* ${cls}\n`;
+    if (school) text += `🏫 *School:* ${school}\n`;
+    if (msg) text += `💬 *Message:* ${msg}\n`;
+
+    const url = `https://wa.me/919212395639?text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank');
+  }
+
+  window.onload = () => showPage('home');
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function userDoc() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid));
+    }
+
+    function isApproved() {
+      return isSignedIn() && userDoc().data.approved == true;
+    }
+
+    function sameAssignedClass(className) {
+      return isApproved() && userDoc().data.class == className;
+    }
+
+    match /users/{userId} {
+      allow read: if isSignedIn() && request.auth.uid == userId;
+      allow write: if false;
+    }
+
+    match /testSeries/{className} {
+      allow read: if sameAssignedClass(className);
+      allow write: if false;
+
+      match /subjects/{subjectId} {
+        allow read: if sameAssignedClass(className);
+        allow write: if false;
+
+        match /chapters/{chapterId} {
+          allow read: if sameAssignedClass(className);
+          allow write: if false;
+        }
+      }
+    }
+  }
+}

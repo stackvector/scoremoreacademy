@@ -1,0 +1,14 @@
+node_modules/
+.vercel/
+.firebase/
+.DS_Store
+Thumbs.db
+*.log
+firebase-debug.log*
+vercel-debug.log*
+.env
+.env.*
+!.env.example
+*.local
+service-account*.json
+google-service-account*.json

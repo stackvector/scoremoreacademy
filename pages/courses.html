@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Courses – ScoreMore Academy</title>
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <style>
+    /* ── Page hero ── */
+    .page-hero {
+      background: linear-gradient(135deg, var(--navy), #1a50c8);
+      color: white;
+      padding: 56px 32px 60px;
+      text-align: center;
+    }
+    .page-hero h1 { color: white; margin-bottom: 12px; }
+    .page-hero p  { color: rgba(255,255,255,0.7); font-size: 1rem; max-width: 520px; margin: 0 auto; }
+
+    /* ── Board toggle ── */
+    .toggle-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    .board-toggle {
+      display: flex;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 4px;
+      gap: 4px;
+      box-shadow: var(--shadow-sm);
+    }
+    .toggle-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 10px 24px;
+      border: none;
+      border-radius: 100px;
+      cursor: pointer;
+      background: transparent;
+      color: var(--muted);
+      transition: background 0.22s, color 0.22s, box-shadow 0.22s;
+    }
+    .toggle-btn.active {
+      background: var(--navy);
+      color: white;
+      box-shadow: 0 2px 8px rgba(10,31,78,0.25);
+    }
+
+    /* ── Board panels ── */
+    .board-panel { display: none; }
+    .board-panel.active { display: block; }
+
+    /* ── Course cards grid ── */
+    .courses-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin-bottom: 32px;
+    }
+    .course-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .course-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+
+    .course-head {
+      padding: 24px 26px 20px;
+      color: white;
+    }
+    .course-head.navy  { background: var(--navy); }
+    .course-head.amber { background: linear-gradient(135deg, #92400e, #c2710c); }
+    .course-head.ib    { background: linear-gradient(135deg, #1e3a5f, #1d4ed8); }
+    .course-head.ib-senior { background: linear-gradient(135deg, #312e81, #4f46e5); }
+
+    .course-grade { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.65; margin-bottom: 5px; }
+    .course-head h3 { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; }
+
+    .course-body { padding: 22px 26px; }
+    .subject-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
+    .subject-tag {
+      background: var(--sky-light);
+      color: var(--blue);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 4px 11px;
+      border-radius: 6px;
+      border: 1px solid #bfdbfe;
+    }
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .feature-list li {
+      display: flex; align-items: flex-start; gap: 9px;
+      font-size: 0.83rem; color: var(--text); line-height: 1.5;
+    }
+    .feature-list li::before { content: '→'; color: var(--blue); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+    /* IB difference note */
+    .ib-note {
+      background: #f0f4ff;
+      border: 1px solid #c7d7ff;
+      border-radius: var(--r-lg);
+      padding: 18px 22px;
+      margin-bottom: 32px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .ib-note .icon { font-size: 1.4rem; flex-shrink: 0; }
+    .ib-note h4 { font-size: 0.88rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .ib-note p  { font-size: 0.81rem; color: var(--muted); margin: 0; }
+
+    /* ── Schedule bar ── */
+    .schedule-bar {
+      background: linear-gradient(135deg, var(--navy), #1a50c8);
+      color: white;
+      border-radius: var(--r-xl);
+      padding: 32px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-bottom: 56px;
+    }
+    .schedule-bar h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 6px; }
+    .schedule-bar p  { opacity: 0.75; font-size: 0.85rem; }
+    .sched-row { display: flex; gap: 28px; flex-wrap: wrap; }
+    .sched-item { text-align: center; }
+    .sched-item .val { font-size: 1.3rem; font-weight: 700; color: var(--gold); }
+    .sched-item .key { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.65; }
+
+    /* ── Skill Courses section ── */
+    .skill-section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .skill-divider-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .skill-section-header span {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .skill-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+    }
+    .skill-card-aside {
+      background: linear-gradient(160deg, #0f172a, #1e3a5f);
+      color: white;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .skill-card-aside .skill-icon { font-size: 2.8rem; margin-bottom: 16px; }
+    .skill-card-aside h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: white; margin-bottom: 8px; }
+    .skill-card-aside .skill-sub { font-size: 0.8rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
+    .skill-badges { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 18px; }
+    .skill-badge {
+      background: rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.85);
+      font-size: 0.7rem;
+      padding: 4px 11px;
+      border-radius: 100px;
+      font-weight: 600;
+    }
+
+    .skill-card-body { padding: 32px; }
+    .skill-card-body h4 { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+    .skill-modules {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .skill-module {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .skill-module .sm-icon { font-size: 1rem; }
+
+    .instructor-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--sky-light);
+      border: 1px solid #bfdbfe;
+      border-radius: 100px;
+      padding: 7px 16px 7px 8px;
+      margin-bottom: 20px;
+    }
+    .instructor-chip .avatar {
+      width: 30px; height: 30px;
+      background: var(--blue);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: white;
+      font-size: 0.8rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .instructor-chip .name { font-size: 0.8rem; font-weight: 600; color: var(--navy); }
+    .instructor-chip .role { font-size: 0.7rem; color: var(--muted); }
+
+    .skill-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    @media (max-width: 820px) {
+      .courses-grid { grid-template-columns: 1fr; }
+      .skill-card   { grid-template-columns: 1fr; }
+      .skill-modules { grid-template-columns: 1fr; }
+      .page-hero { padding: 40px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="topbar"></div>
+  <div id="navbar"></div>
+
+  <div class="page-hero">
+    <div class="section-label" style="color:rgba(255,255,255,0.55);">What We Teach</div>
+    <h1>Courses Offered</h1>
+    <p>School coaching for Classes 5–12 across all major boards, plus skill courses for professionals.</p>
+  </div>
+
+  <div class="page-wrap">
+
+    <!-- BOARD TOGGLE -->
+    <div class="toggle-wrap">
+      <div class="board-toggle">
+        <button class="toggle-btn active" onclick="switchBoard('cbse')">CBSE / ICSE</button>
+        <button class="toggle-btn"        onclick="switchBoard('ib')">IB / IGCSE</button>
+      </div>
+    </div>
+
+    <!-- ══ CBSE / ICSE PANEL ══ -->
+    <div class="board-panel active" id="panel-cbse">
+      <div class="courses-grid">
+        <div class="course-card">
+          <div class="course-head navy">
+            <div class="course-grade">Classes 5 – 10 · CBSE / ICSE</div>
+            <h3>Foundation &amp; Secondary Program</h3>
+          </div>
+          <div class="course-body">
+            <div class="subject-tags">
+              <span class="subject-tag">Mathematics</span>
+              <span class="subject-tag">Physics</span>
+              <span class="subject-tag">Chemistry</span>
+              <span class="subject-tag">Biology</span>
+            </div>
+            <ul class="feature-list">
+              <li>NCERT and board-aligned curriculum</li>
+              <li>Concept-first teaching with structured notes</li>
+              <li>Chapter-wise worksheets &amp; assignments</li>
+              <li>Weekly class tests with performance tracking</li>
+              <li>Doubt-clearing sessions built into schedule</li>
+              <li>Regular parent progress updates</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="course-card">
+          <div class="course-head amber">
+            <div class="course-grade">Classes 11 – 12 · CBSE</div>
+            <h3>Senior Secondary Mathematics</h3>
+          </div>
+          <div class="course-body">
+            <div class="subject-tags">
+              <span class="subject-tag">Mathematics</span>
+            </div>
+            <ul class="feature-list">
+              <li>Full NCERT + board exam coverage</li>
+              <li>Calculus, Algebra, Vectors, Probability &amp; more</li>
+              <li>Previous year board paper practice</li>
+              <li>Exam strategy &amp; time management coaching</li>
+              <li>Step-by-step solutions for complex problems</li>
+              <li>Full syllabus completion guaranteed</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ IB / IGCSE PANEL ══ -->
+    <div class="board-panel" id="panel-ib">
+      <div class="ib-note">
+        <div class="icon">🌍</div>
+        <div>
+          <h4>How IB/IGCSE Coaching Differs at ScoreMore</h4>
+          <p>IB and IGCSE demand a deeper conceptual grasp, real-world application thinking, and structured Internal Assessment (IA) support — not just exam drilling. Our IB coaching is tailored to these unique demands.</p>
+        </div>
+      </div>
+
+      <div class="courses-grid">
+        <div class="course-card">
+          <div class="course-head ib">
+            <div class="course-grade">MYP / IGCSE (Grades 6–10)</div>
+            <h3>IB Middle Years &amp; IGCSE Program</h3>
+          </div>
+          <div class="course-body">
+            <div class="subject-tags">
+              <span class="subject-tag">Mathematics</span>
+              <span class="subject-tag">Physics</span>
+              <span class="subject-tag">Chemistry</span>
+              <span class="subject-tag">Biology</span>
+            </div>
+            <ul class="feature-list">
+              <li>Conceptual understanding over formula memorisation</li>
+              <li>MYP criterion-based assessment strategies</li>
+              <li>Real-world application and data analysis tasks</li>
+              <li>Cambridge/Pearson IGCSE exam technique</li>
+              <li>Structured Extended Response &amp; lab report writing</li>
+              <li>Inquiry-based problem solving practice</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="course-card">
+          <div class="course-head ib-senior">
+            <div class="course-grade">IB Diploma Programme (Grades 11–12)</div>
+            <h3>IB Diploma Mathematics</h3>
+          </div>
+          <div class="course-body">
+            <div class="subject-tags">
+              <span class="subject-tag">Maths: Analysis &amp; Approaches</span>
+              <span class="subject-tag">Maths: AI</span>
+            </div>
+            <ul class="feature-list">
+              <li>Full SL and HL syllabus coverage</li>
+              <li>Internal Assessment (IA) planning, drafting &amp; review</li>
+              <li>TOK-linked mathematical thinking discussions</li>
+              <li>Technology integration: GDC usage strategy</li>
+              <li>Past IB paper practice with markscheme analysis</li>
+              <li>HL-specific: proof, complex numbers, differential equations</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCHEDULE BAR -->
+    <div class="schedule-bar">
+      <div>
+        <h3>Class Schedule</h3>
+        <p>All batches run Monday–Saturday. Offline at Sector 61, Noida or online from anywhere.</p>
+      </div>
+      <div class="sched-row">
+        <div class="sched-item"><div class="val">Mon–Sat</div><div class="key">Days</div></div>
+        <div class="sched-item"><div class="val">3:30–8 PM</div><div class="key">Timing</div></div>
+        <div class="sched-item"><div class="val">Small</div><div class="key">Batches</div></div>
+        <div class="sched-item"><div class="val">Online+</div><div class="key">Offline</div></div>
+      </div>
+    </div>
+
+    <!-- ══ SKILL COURSES ══ -->
+    <div class="skill-section-header">
+      <div class="skill-divider-line"></div>
+      <span>Skill Courses — Professional &amp; Adult Learning</span>
+      <div class="skill-divider-line"></div>
+    </div>
+
+    <div class="section-header" style="margin-bottom: 28px;">
+      <div class="section-label">Beyond School</div>
+      <h2 style="font-size: 1.7rem;">Skill Courses</h2>
+      <p>Practical, career-relevant courses taught by domain experts. Separate from school programs — open to adults and working professionals.</p>
+    </div>
+
+    <!-- Python Course Card -->
+    <div class="skill-card">
+      <div class="skill-card-aside">
+        <div>
+          <div class="skill-icon">🐍</div>
+          <h3>Python for Professionals</h3>
+          <div class="skill-sub">A practical, hands-on course for working professionals and beginners who want to use Python for automation, data tasks, and everyday problem-solving.</div>
+        </div>
+        <div>
+          <div class="skill-badges">
+            <span class="skill-badge">🌐 Online</span>
+            <span class="skill-badge">🏫 Offline</span>
+            <span class="skill-badge">Beginner Friendly</span>
+            <span class="skill-badge">Weekends</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-card-body">
+        <div class="instructor-chip">
+          <div class="avatar">RK</div>
+          <div>
+            <div class="name">Partner Instructor — Rahul Kumar</div>
+            <div class="role">Senior Software Engineer · 8+ yrs Python experience</div>
+          </div>
+        </div>
+
+        <h4>What You'll Learn</h4>
+        <div class="skill-modules">
+          <div class="skill-module"><span class="sm-icon">📦</span> Python Basics &amp; Data Types</div>
+          <div class="skill-module"><span class="sm-icon">🔁</span> Loops, Functions &amp; OOP</div>
+          <div class="skill-module"><span class="sm-icon">📊</span> Data Analysis with Pandas</div>
+          <div class="skill-module"><span class="sm-icon">📈</span> Data Visualisation (Matplotlib)</div>
+          <div class="skill-module"><span class="sm-icon">🤖</span> Automation Scripts</div>
+          <div class="skill-module"><span class="sm-icon">🛠️</span> Mini Project &amp; Capstone</div>
+        </div>
+
+        <div class="skill-cta">
+          <a href="https://wa.me/919212395639?text=Hi%2C%20I%27m%20interested%20in%20the%20Python%20for%20Professionals%20course.%20Please%20share%20details." target="_blank" class="btn btn-wa">💬 Enquire on WhatsApp</a>
+          <a href="enroll.html" class="btn btn-outline-dark">Register Interest →</a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /page-wrap -->
+
+  <div id="footer"></div>
+
+  <script src="../js/nav.js"></script>
+  <script>
+    injectLayout('courses');
+
+    function switchBoard(board) {
+      document.querySelectorAll('.board-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('panel-' + board).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>

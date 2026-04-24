@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Results – ScoreMore Academy</title>
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/theme-override.css" />
+  <style>
+    .page-hero {
+      background: linear-gradient(135deg, #0a1f4e, #1a50c8);
+      color: white;
+      padding: 56px 32px 60px;
+      text-align: center;
+    }
+    .page-hero h1 { color: white; margin-bottom: 12px; }
+    .page-hero p  { color: rgba(255,255,255,0.7); max-width: 500px; margin: 0 auto; }
+
+    /* ── Stats banner ── */
+    .stats-banner {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      padding: 28px 32px;
+    }
+    .stats-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+    }
+    .stat-cell {
+      background: white;
+      padding: 22px 20px;
+      text-align: center;
+    }
+    .stat-cell .big {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--navy);
+      line-height: 1;
+    }
+    .stat-cell .big span { color: var(--blue); }
+    .stat-cell .label { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+
+    /* ── Filters ── */
+    .filter-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .filter-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 8px 18px;
+      border: 1.5px solid var(--border);
+      border-radius: 100px;
+      background: white;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--navy);
+      color: white;
+      border-color: var(--navy);
+    }
+
+    /* ── Results grid ── */
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .result-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .result-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+
+    .result-card-top {
+      padding: 20px 20px 0;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .student-avatar {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #dbeafe, #c7d7ff);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--blue);
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .student-avatar img { width:100%; height:100%; object-fit:cover; }
+    .student-meta { flex: 1; }
+    .student-meta .sname { font-weight: 700; font-size: 0.92rem; color: var(--navy); }
+    .student-meta .smeta { font-size: 0.74rem; color: var(--muted); margin-top: 2px; }
+
+    /* Score comparison */
+    .score-section { padding: 16px 20px 0; }
+    .score-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .score-box {
+      text-align: center;
+      flex: 1;
+    }
+    .score-box .label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 3px; }
+    .score-before { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: #94a3b8; }
+    .score-after  { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: var(--success); }
+
+    .arrow-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      flex: 0;
+      padding: 0 10px;
+    }
+    .arrow-icon { font-size: 1.2rem; color: var(--gold); }
+    .gain-badge {
+      background: #dcfce7;
+      color: #166534;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    /* Progress bar */
+    .progress-wrap { padding: 6px 20px 6px; }
+    .progress-track {
+      height: 6px;
+      background: #e2e8f0;
+      border-radius: 100px;
+      overflow: hidden;
+    }
+    .progress-before { height: 100%; border-radius: 100px; background: #cbd5e1; position: relative; }
+    .progress-bar-container { position: relative; height: 6px; background: #e2e8f0; border-radius: 100px; overflow: hidden; }
+    .pb-before { position: absolute; left: 0; top: 0; height: 100%; background: #cbd5e1; border-radius: 100px; }
+    .pb-after  { position: absolute; left: 0; top: 0; height: 100%; background: var(--success); border-radius: 100px; transition: width 0.8s ease; }
+
+    .card-footer-strip {
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      margin-top: 14px;
+    }
+    .subject-chip {
+      font-size: 0.7rem;
+      font-weight: 600;
+      background: var(--sky-light);
+      color: var(--blue);
+      padding: 3px 10px;
+      border-radius: 6px;
+    }
+    .duration-text { font-size: 0.72rem; color: var(--muted); }
+
+    /* ── CTA strip ── */
+    .results-cta {
+      background: linear-gradient(135deg, var(--navy), #1a50c8);
+      border-radius: var(--r-xl);
+      padding: 40px;
+      text-align: center;
+      margin-top: 48px;
+      color: white;
+    }
+    .results-cta h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 10px; }
+    .results-cta p  { opacity: 0.75; margin-bottom: 24px; max-width: 420px; margin-left: auto; margin-right: auto; }
+
+    @media (max-width: 860px) { .results-grid { grid-template-columns: 1fr 1fr; } .stats-inner { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .results-grid { grid-template-columns: 1fr; } .stats-inner { grid-template-columns: 1fr 1fr; } }
+  </style>
+</head>
+<body class="page-results">
+  <div id="topbar"></div>
+  <div id="navbar"></div>
+
+  <div class="page-hero">
+    <div class="section-label" style="color:rgba(255,255,255,0.55);">The Data</div>
+    <h1>Student Results</h1>
+    <p>Real score improvements from real students. Numbers don't lie.</p>
+  </div>
+
+  <div class="stats-banner">
+    <div class="stats-inner">
+      <div class="stat-cell"><div class="big"><span>500</span>+</div><div class="label">Students Coached</div></div>
+      <div class="stat-cell"><div class="big"><span>23</span>%</div><div class="label">Avg. Score Improvement</div></div>
+      <div class="stat-cell"><div class="big"><span>95</span>%</div><div class="label">Students Improved</div></div>
+      <div class="stat-cell"><div class="big"><span>20</span>+</div><div class="label">Years of Results</div></div>
+    </div>
+  </div>
+
+  <div class="page-wrap">
+    <div class="section-header">
+      <div class="section-label">Score Improvements</div>
+      <h2>Before → After</h2>
+      <p>Each card shows a student's score before joining ScoreMore and their result after. Filter by subject or class.</p>
+    </div>
+
+    <!-- Filters -->
+    <div class="filter-row" id="filterRow">
+      <button class="filter-btn active" onclick="filterResults('all', this)">All</button>
+      <button class="filter-btn" onclick="filterResults('maths', this)">Mathematics</button>
+      <button class="filter-btn" onclick="filterResults('science', this)">Science</button>
+      <button class="filter-btn" onclick="filterResults('physics', this)">Physics</button>
+      <button class="filter-btn" onclick="filterResults('class9-10', this)">Class 9–10</button>
+      <button class="filter-btn" onclick="filterResults('class11-12', this)">Class 11–12</button>
+    </div>
+
+    <!-- Results Grid -->
+    <div class="results-grid" id="resultsGrid"></div>
+
+    <div class="results-cta">
+      <h3>Your Child Could Be Next</h3>
+      <p>Join the hundreds of students who have transformed their scores with ScoreMore Academy.</p>
+      <a href="enroll.html" class="btn btn-primary btn-lg">📋 Enroll Today</a>
+    </div>
+  </div>
+
+  <div id="footer"></div>
+
+  <script src="../js/nav.js"></script>
+  <script>
+    injectLayout('results');
+
+    const RESULTS = [
+      { name: 'Aarav S.',    school: 'DPS Noida',       class: 'Class 10', subject: 'maths',   subjectLabel: 'Mathematics', before: 58, after: 89, duration: '8 months',   emoji: '📐' },
+      { name: 'Riya M.',     school: 'AIS Noida',       class: 'Class 10', subject: 'science', subjectLabel: 'Science',     before: 70, after: 93, duration: '1 year',     emoji: '🔬' },
+      { name: 'Kabir T.',    school: 'Somerville School',class: 'Class 12', subject: 'maths',   subjectLabel: 'Mathematics', before: 62, after: 91, duration: '1 year',     emoji: '📊' },
+      { name: 'Ananya G.',   school: 'Khaitan School',  class: 'Class 9',  subject: 'class9-10', subjectLabel: 'Science',   before: 55, after: 82, duration: '6 months',   emoji: '⚗️' },
+      { name: 'Rohan P.',    school: 'DPS Sec 45',      class: 'Class 12', subject: 'maths',   subjectLabel: 'Mathematics', before: 74, after: 95, duration: '10 months',  emoji: '∑' },
+      { name: 'Priya K.',    school: 'AIS Saket',       class: 'Class 9',  subject: 'physics', subjectLabel: 'Physics',     before: 49, after: 78, duration: '8 months',   emoji: '⚡' },
+      { name: 'Arjun V.',    school: 'Lotus Valley',    class: 'Class 11', subject: 'maths',   subjectLabel: 'Mathematics', before: 65, after: 88, duration: '1 year',     emoji: '📐' },
+      { name: 'Sneha L.',    school: 'Amity Noida',     class: 'Class 8',  subject: 'science', subjectLabel: 'Science',     before: 61, after: 84, duration: '5 months',   emoji: '🌱' },
+      { name: 'Dev R.',      school: 'GD Goenka',       class: 'Class 10', subject: 'class9-10', subjectLabel: 'Mathematics', before: 52, after: 85, duration: '9 months', emoji: '🧮' },
+    ];
+
+    function makeCard(r) {
+      const gain = r.after - r.before;
+      const initials = r.name.split(' ').map(w => w[0]).join('').slice(0,2);
+      const tags = [r.subject];
+      if (['class9-10','class11-12'].includes(r.subject)) tags.push(r.subject);
+      // Also tag class9-10 for class 9 and 10
+      const isClass910 = ['Class 9','Class 10'].includes(r.class);
+      const isClass1112 = ['Class 11','Class 12'].includes(r.class);
+
+      return `
+      <div class="result-card" data-subject="${r.subject}" data-class="${isClass910 ? 'class9-10' : isClass1112 ? 'class11-12' : ''}">
+        <div class="result-card-top">
+          <div class="student-avatar">${initials}</div>
+          <div class="student-meta">
+            <div class="sname">${r.name}</div>
+            <div class="smeta">${r.class} · ${r.school}</div>
+          </div>
+        </div>
+        <div class="score-section">
+          <div class="score-row">
+            <div class="score-box"><div class="label">Before</div><div class="score-before">${r.before}%</div></div>
+            <div class="arrow-box">
+              <div class="arrow-icon">→</div>
+              <div class="gain-badge">+${gain}%</div>
+            </div>
+            <div class="score-box"><div class="label">After</div><div class="score-after">${r.after}%</div></div>
+          </div>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-bar-container">
+            <div class="pb-before" style="width:${r.before}%"></div>
+            <div class="pb-after"  style="width:0%" data-target="${r.after}%"></div>
+          </div>
+        </div>
+        <div class="card-footer-strip">
+          <span class="subject-chip">${r.subjectLabel}</span>
+          <span class="duration-text">⏱ ${r.duration}</span>
+        </div>
+      </div>`;
+    }
+
+    function renderAll(data) {
+      const grid = document.getElementById('resultsGrid');
+      grid.innerHTML = data.map(makeCard).join('');
+      // Animate bars after render
+      setTimeout(() => {
+        grid.querySelectorAll('.pb-after').forEach(bar => {
+          bar.style.width = bar.dataset.target;
+        });
+      }, 100);
+    }
+
+    function filterResults(type, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      if (type === 'all') { renderAll(RESULTS); return; }
+      const filtered = RESULTS.filter(r => {
+        if (type === 'class9-10') return ['Class 9','Class 10'].includes(r.class);
+        if (type === 'class11-12') return ['Class 11','Class 12'].includes(r.class);
+        return r.subject === type;
+      });
+      renderAll(filtered);
+    }
+
+    renderAll(RESULTS);
+  </script>
+</body>
+</html>
