@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Test Series – ScoreMore Academy</title>
+  <title>Test Series - ScoreMore Academy</title>
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/layout.css" />
   <link rel="stylesheet" href="css/theme-override.css" />
   <style>
-    /* ── Hero ── */
+    html { scroll-behavior: smooth; }
+
     .page-hero {
       background: linear-gradient(140deg, #0a1f4e 0%, #1a3a7c 50%, #1d4ed8 100%);
       color: white;
@@ -18,16 +19,30 @@
       overflow: hidden;
     }
     .page-hero::before {
-      content: '📄';
+      content: 'PDF';
       position: absolute;
-      font-size: 18rem;
+      font-size: 12rem;
       opacity: 0.04;
-      top: -40px; right: -40px;
+      top: -8px;
+      right: 12px;
       pointer-events: none;
+      font-weight: 800;
+      letter-spacing: 0.08em;
     }
     .page-hero h1 { color: white; margin-bottom: 14px; }
-    .page-hero .lead { color: rgba(255,255,255,0.75); font-size: 1.05rem; max-width: 560px; margin: 0 auto 32px; }
-    .hero-chips { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 32px; }
+    .page-hero .lead {
+      color: rgba(255,255,255,0.78);
+      font-size: 1.05rem;
+      max-width: 560px;
+      margin: 0 auto 32px;
+    }
+    .hero-chips {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
     .hero-chip {
       background: rgba(255,255,255,0.12);
       border: 1px solid rgba(255,255,255,0.2);
@@ -37,9 +52,13 @@
       padding: 6px 16px;
       border-radius: 100px;
     }
-    .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
 
-    /* ── What is Test Series ── */
     .what-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -55,22 +74,53 @@
       text-align: center;
     }
     .what-visual .big-icon { font-size: 4rem; margin-bottom: 16px; }
-    .what-visual h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 10px; }
-    .what-visual p  { opacity: 0.75; font-size: 0.87rem; line-height: 1.7; }
-
-    .timeline { list-style: none; display: flex; flex-direction: column; gap: 18px; }
-    .tl-item  { display: flex; gap: 16px; align-items: flex-start; }
-    .tl-num   {
-      width: 34px; height: 34px; border-radius: 50%;
-      background: var(--sky-light); color: var(--blue);
-      font-weight: 700; font-size: 0.85rem;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; margin-top: 2px;
+    .what-visual h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      margin-bottom: 10px;
     }
-    .tl-text h4 { font-size: 0.92rem; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
-    .tl-text p  { font-size: 0.81rem; margin: 0; }
+    .what-visual p {
+      opacity: 0.78;
+      font-size: 0.87rem;
+      line-height: 1.7;
+    }
 
-    /* ── Benefits grid ── */
+    .timeline {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .tl-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .tl-num {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--sky-light);
+      color: var(--blue);
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .tl-text h4 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 3px;
+    }
+    .tl-text p {
+      font-size: 0.81rem;
+      margin: 0;
+    }
+
     .benefits-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -84,12 +134,14 @@
       padding: 22px;
       transition: box-shadow 0.2s, transform 0.2s;
     }
-    .benefit-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
-    .benefit-icon { font-size: 1.6rem; margin-bottom: 10px; }
+    .benefit-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
+    .benefit-icon { font-size: 1.2rem; margin-bottom: 10px; font-weight: 800; color: var(--blue); }
     .benefit-card h4 { font-size: 0.9rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
-    .benefit-card p  { font-size: 0.8rem; }
+    .benefit-card p { font-size: 0.8rem; }
 
-    /* ── Pricing ── */
     .pricing-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -111,7 +163,8 @@
     }
     .popular-badge {
       position: absolute;
-      top: -12px; left: 50%;
+      top: -12px;
+      left: 50%;
       transform: translateX(-50%);
       background: var(--blue);
       color: white;
@@ -123,33 +176,67 @@
       text-transform: uppercase;
       white-space: nowrap;
     }
-    .price-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
-    .price-tier { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-    .price-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--navy); margin-bottom: 16px; }
-    .price-amount {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.6rem;
-      font-weight: 900;
-      color: var(--navy);
-      line-height: 1;
-      margin-bottom: 4px;
+    .price-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
     }
-    .price-amount .currency { font-size: 1.2rem; vertical-align: super; }
-    .price-amount .placeholder {
-      font-size: 1.4rem;
+    .price-tier {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       color: var(--muted);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 500;
+      margin-bottom: 8px;
     }
-    .price-period { font-size: 0.75rem; color: var(--muted); margin-bottom: 20px; }
-    .price-features { list-style: none; text-align: left; display: flex; flex-direction: column; gap: 9px; margin-bottom: 24px; }
+    .price-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+    .price-summary {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+    .price-meta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+    .price-meta span {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 5px 11px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .price-features {
+      list-style: none;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-bottom: 24px;
+    }
     .price-features li {
-      font-size: 0.82rem; color: var(--text);
-      display: flex; align-items: center; gap: 9px;
+      font-size: 0.82rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 9px;
     }
-    .price-features li::before { content: '✓'; color: var(--success); font-weight: 700; }
+    .price-features li::before {
+      content: '+';
+      color: var(--success);
+      font-weight: 700;
+    }
 
-    /* ── How to Access ── */
     .access-flow {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -176,23 +263,33 @@
       z-index: 2;
     }
     .flow-step:not(:last-child) { border-right: 1px solid var(--border); }
-    .flow-icon { font-size: 1.8rem; margin-bottom: 10px; }
+    .flow-icon {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      font-weight: 800;
+      color: var(--blue);
+    }
     .flow-step h4 { font-size: 0.88rem; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
-    .flow-step p  { font-size: 0.76rem; }
+    .flow-step p { font-size: 0.76rem; }
 
     @media (max-width: 860px) {
-      .what-grid, .pricing-grid { grid-template-columns: 1fr; }
+      .what-grid,
+      .pricing-grid { grid-template-columns: 1fr; }
       .benefits-grid { grid-template-columns: 1fr 1fr; }
       .access-flow { grid-template-columns: 1fr 1fr; }
       .flow-step:nth-child(2)::after,
       .flow-step:nth-child(4)::after { display: none; }
       .flow-step:nth-child(2) { border-right: none; }
     }
+
     @media (max-width: 560px) {
       .benefits-grid { grid-template-columns: 1fr; }
       .access-flow { grid-template-columns: 1fr; }
       .flow-step::after { display: none !important; }
-      .flow-step { border-right: none !important; border-bottom: 1px solid var(--border); }
+      .flow-step {
+        border-right: none !important;
+        border-bottom: 1px solid var(--border);
+      }
     }
   </style>
 </head>
@@ -201,139 +298,133 @@
   <div id="navbar"></div>
 
   <div class="page-hero">
-    <div class="section-label" style="color:rgba(255,255,255,0.5); margin-bottom:14px;">Structured Practice</div>
+    <div class="section-label" style="color:rgba(255,255,255,0.55); margin-bottom:14px;">Structured Practice</div>
     <h1>ScoreMore Test Series</h1>
-    <div class="lead">Chapter-wise, subject-wise PDF test papers — designed to build exam confidence week by week. Practice with purpose.</div>
+    <div class="lead">Chapter-wise, subject-wise PDF test papers designed to build exam confidence week by week. Practice with purpose.</div>
     <div class="hero-chips">
-      <span class="hero-chip">📄 Chapter-wise PDFs</span>
-      <span class="hero-chip">🗓️ Weekly Releases</span>
-      <span class="hero-chip">📚 Class 5–12</span>
-      <span class="hero-chip">CBSE · ICSE · IB</span>
-      <span class="hero-chip">🔒 Gated Access</span>
+      <span class="hero-chip">Chapter-wise PDFs</span>
+      <span class="hero-chip">Weekly Releases</span>
+      <span class="hero-chip">Class 5-12</span>
+      <span class="hero-chip">CBSE • ICSE • IB</span>
+      <span class="hero-chip">Gated Access</span>
     </div>
     <div class="hero-actions">
-      <a href="dashboard.html" class="btn btn-primary btn-lg">🔓 Access Dashboard</a>
-      <a href="https://wa.me/919212395639?text=Hi%2C%20I%27m%20interested%20in%20the%20ScoreMore%20Test%20Series.%20Please%20share%20pricing%20and%20details." target="_blank" class="btn btn-outline btn-lg">💬 Ask on WhatsApp</a>
+      <a href="dashboard.html" class="btn btn-primary btn-lg">Access Dashboard</a>
+      <a href="#plans" class="btn btn-outline btn-lg">Buy Today</a>
     </div>
   </div>
 
   <div class="page-wrap">
-
-    <!-- WHAT IS IT -->
     <div class="what-grid">
       <div class="what-visual">
-        <div class="big-icon">📋</div>
+        <div class="big-icon">TS</div>
         <h3>Weekly Chapter-wise Tests</h3>
-        <p>Curated PDF test papers released every week — one chapter at a time — so students build deep chapter mastery before moving on.</p>
+        <p>Curated PDF test papers released every week, one chapter at a time, so students build chapter mastery before moving on.</p>
       </div>
       <div>
         <div class="section-label">How It Works</div>
         <h2 style="font-size:1.7rem; margin-bottom:24px;">Systematic, Not Random</h2>
         <ul class="timeline">
-          <li class="tl-item"><div class="tl-num">1</div><div class="tl-text"><h4>Choose Your Class &amp; Subject</h4><p>Access papers organised by Class → Subject → Chapter in your dashboard.</p></div></li>
-          <li class="tl-item"><div class="tl-num">2</div><div class="tl-text"><h4>Download &amp; Attempt</h4><p>Print or solve on screen. Each paper is timed and difficulty-labelled.</p></div></li>
-          <li class="tl-item"><div class="tl-num">3</div><div class="tl-text"><h4>Check Answer Keys</h4><p>Detailed solutions included with every paper so students learn from mistakes.</p></div></li>
-          <li class="tl-item"><div class="tl-num">4</div><div class="tl-text"><h4>New Papers Every Week</h4><p>Fresh papers released weekly to keep pace with your school syllabus.</p></div></li>
+          <li class="tl-item"><div class="tl-num">1</div><div class="tl-text"><h4>Choose Your Class and Subject</h4><p>Access papers organised by Class, Subject, and Chapter inside your dashboard.</p></div></li>
+          <li class="tl-item"><div class="tl-num">2</div><div class="tl-text"><h4>Download and Attempt</h4><p>Print or solve on screen. Each paper is timed and structured around chapter mastery.</p></div></li>
+          <li class="tl-item"><div class="tl-num">3</div><div class="tl-text"><h4>Check Answer Keys</h4><p>Detailed answer keys help students learn from mistakes, not just mark them wrong.</p></div></li>
+          <li class="tl-item"><div class="tl-num">4</div><div class="tl-text"><h4>Repeat Every Week</h4><p>Fresh papers are added steadily to match school progress and board preparation.</p></div></li>
         </ul>
       </div>
     </div>
 
-    <!-- BENEFITS -->
     <div class="section-header">
       <div class="section-label">Why Use It</div>
       <h2>Built to Build Confidence</h2>
     </div>
     <div class="benefits-grid">
-      <div class="benefit-card"><div class="benefit-icon">📐</div><h4>Chapter-by-Chapter Mastery</h4><p>Each paper tests one chapter deeply — no skipping around. Build solid foundations.</p></div>
-      <div class="benefit-card"><div class="benefit-icon">⏱️</div><h4>Timed Under Exam Conditions</h4><p>Practise with real time pressure so board exams feel familiar, not frightening.</p></div>
-      <div class="benefit-card"><div class="benefit-icon">✅</div><h4>Detailed Answer Keys</h4><p>Every paper comes with step-by-step solutions — understand every mark lost.</p></div>
-      <div class="benefit-card"><div class="benefit-icon">📅</div><h4>Weekly Fresh Content</h4><p>New papers released every week, synced to the CBSE/ICSE/IB academic calendar.</p></div>
-      <div class="benefit-card"><div class="benefit-icon">🎯</div><h4>Board-Pattern Aligned</h4><p>Papers mirror actual board exam formats — question types, marks weightage, and style.</p></div>
-      <div class="benefit-card"><div class="benefit-icon">📱</div><h4>Access Anywhere</h4><p>Download and solve on any device — phone, tablet, or laptop. Your dashboard, your pace.</p></div>
+      <div class="benefit-card"><div class="benefit-icon">01</div><h4>Chapter-by-Chapter Mastery</h4><p>Each paper stays focused on a single chapter so weak spots show up clearly and can be fixed early.</p></div>
+      <div class="benefit-card"><div class="benefit-icon">02</div><h4>Timed Practice</h4><p>Students get used to solving under realistic time pressure instead of only untimed revision.</p></div>
+      <div class="benefit-card"><div class="benefit-icon">03</div><h4>Detailed Answer Keys</h4><p>Solutions help students understand how to improve, not just what their score was.</p></div>
+      <div class="benefit-card"><div class="benefit-icon">04</div><h4>Weekly Fresh Content</h4><p>New PDFs keep practice moving and prevent students from running out of relevant material.</p></div>
+      <div class="benefit-card"><div class="benefit-icon">05</div><h4>Board-Aligned Practice</h4><p>Question style, difficulty, and coverage are tuned toward school and board expectations.</p></div>
+      <div class="benefit-card"><div class="benefit-icon">06</div><h4>Simple Dashboard Access</h4><p>Everything stays organised in one place once the student account is approved.</p></div>
     </div>
 
-    <!-- PRICING -->
-    <div class="section-header">
+    <div class="section-header" id="plans">
       <div class="section-label">Plans</div>
-      <h2>Simple, Transparent Pricing</h2>
-      <p>Pay once, access your tier for the full academic year. All payments processed manually via WhatsApp.</p>
+      <h2>Choose Your Support Level</h2>
+      <p>Pick a plan based on how many subjects you want and how much guidance you need beyond dashboard access.</p>
     </div>
     <div class="pricing-grid">
       <div class="price-card">
-        <div class="price-tier">Starter</div>
-        <div class="price-name">Single Subject</div>
-        <div class="price-amount"><span class="currency">₹</span><span class="placeholder">____</span></div>
-        <div class="price-period">per year · one subject</div>
+        <div class="price-tier">Single</div>
+        <div class="price-name">One Subject Access</div>
+        <div class="price-summary">Ideal for students who want focused practice in one subject only.</div>
+        <div class="price-meta"><span>1 Subject</span><span>No Support</span></div>
         <ul class="price-features">
-          <li>1 subject of your choice</li>
-          <li>All chapters for that subject</li>
-          <li>Weekly new papers</li>
-          <li>Answer keys included</li>
-          <li>1 class (e.g. Class 10)</li>
+          <li>Weekly PDFs</li>
+          <li>Chapter tests</li>
+          <li>Timed practice</li>
+          <li>Answer keys</li>
+          <li>Dashboard access</li>
         </ul>
-        <a href="https://wa.me/919212395639?text=Hi%2C%20I%27m%20interested%20in%20the%20Starter%20Test%20Series%20plan." target="_blank" class="btn btn-outline-dark" style="width:100%; justify-content:center;">Get Access</a>
+        <a href="checkout.html?plan=single" class="btn btn-outline-dark" style="width:100%; justify-content:center;">Buy Today</a>
       </div>
 
       <div class="price-card popular">
         <div class="popular-badge">Most Popular</div>
-        <div class="price-tier">Full Subject</div>
-        <div class="price-name">All Subjects</div>
-        <div class="price-amount"><span class="currency">₹</span><span class="placeholder">____</span></div>
-        <div class="price-period">per year · all subjects</div>
+        <div class="price-tier">Dual</div>
+        <div class="price-name">Maths + Science</div>
+        <div class="price-summary">Best for students covering two core subjects together.</div>
+        <div class="price-meta"><span>2 Subjects</span><span>Maths + Science</span><span>No Support</span></div>
         <ul class="price-features">
-          <li>All subjects — Maths + Science</li>
-          <li>All chapters across subjects</li>
-          <li>Weekly new papers</li>
-          <li>Answer keys included</li>
-          <li>1 class level</li>
+          <li>Everything in Single</li>
+          <li>Weekly PDFs across both subjects</li>
+          <li>Chapter tests for both subjects</li>
+          <li>Timed practice</li>
+          <li>Answer keys</li>
+          <li>Dashboard access</li>
         </ul>
-        <a href="https://wa.me/919212395639?text=Hi%2C%20I%27m%20interested%20in%20the%20Full%20Subject%20Test%20Series%20plan." target="_blank" class="btn btn-dark" style="width:100%; justify-content:center;">Get Access</a>
+        <a href="checkout.html?plan=dual" class="btn btn-dark" style="width:100%; justify-content:center;">Buy Today</a>
       </div>
 
       <div class="price-card">
-        <div class="price-tier">Premium</div>
-        <div class="price-name">Multi-Year Bundle</div>
-        <div class="price-amount"><span class="currency">₹</span><span class="placeholder">____</span></div>
-        <div class="price-period">2 years · all subjects</div>
+        <div class="price-tier">Mentored</div>
+        <div class="price-name">Dual + Guidance</div>
+        <div class="price-summary">Adds light academic guidance on top of two-subject dashboard access.</div>
+        <div class="price-meta"><span>2 Subjects</span><span>Limited Doubts</span><span>Basic Feedback</span></div>
         <ul class="price-features">
-          <li>Everything in Full Subject</li>
-          <li>2 academic years access</li>
-          <li>Access across class levels</li>
-          <li>Priority WhatsApp support</li>
-          <li>Best value</li>
+          <li>Everything in Dual</li>
+          <li>Limited doubt support</li>
+          <li>Basic feedback</li>
+          <li>Strategy guidance</li>
         </ul>
-        <a href="https://wa.me/919212395639?text=Hi%2C%20I%27m%20interested%20in%20the%20Premium%20Test%20Series%20bundle." target="_blank" class="btn btn-outline-dark" style="width:100%; justify-content:center;">Get Access</a>
+        <a href="checkout.html?plan=mentored" class="btn btn-outline-dark" style="width:100%; justify-content:center;">Buy Today</a>
       </div>
     </div>
 
-    <!-- HOW TO ACCESS -->
     <div class="section-header">
       <div class="section-label">Getting Access</div>
       <h2>4 Simple Steps</h2>
     </div>
     <div class="access-flow">
       <div class="flow-step">
-        <div class="flow-icon">💬</div>
-        <h4>1. WhatsApp Us</h4>
-        <p>Click any "Get Access" button to send us a pre-filled WhatsApp message.</p>
+        <div class="flow-icon">01</div>
+        <h4>Choose a Plan</h4>
+        <p>Select the plan that fits your subjects and support needs.</p>
       </div>
       <div class="flow-step">
-        <div class="flow-icon">💳</div>
-        <h4>2. Pay Manually</h4>
-        <p>We'll share payment details (UPI / bank transfer). No online checkout.</p>
+        <div class="flow-icon">02</div>
+        <h4>Continue to WhatsApp</h4>
+        <p>The checkout flow sends you to WhatsApp with your plan already selected.</p>
       </div>
       <div class="flow-step">
-        <div class="flow-icon">✅</div>
-        <h4>3. We Approve You</h4>
-        <p>Once payment is confirmed, we activate your dashboard access within 24 hours.</p>
+        <div class="flow-icon">03</div>
+        <h4>Pay Manually</h4>
+        <p>We share UPI or bank details and confirm payment directly.</p>
       </div>
       <div class="flow-step">
-        <div class="flow-icon">🔓</div>
-        <h4>4. Log In &amp; Access</h4>
-        <p>Sign in to the dashboard with Google — your approved PDFs will be ready.</p>
+        <div class="flow-icon">04</div>
+        <h4>Get Approved</h4>
+        <p>Once approved, your Google account can access the dashboard and PDFs.</p>
       </div>
     </div>
-
   </div>
 
   <div id="footer"></div>
