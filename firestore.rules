@@ -10,30 +10,44 @@ service cloud.firestore {
       return get(/databases/$(database)/documents/users/$(request.auth.uid));
     }
 
+    function adminDoc() {
+      return get(/databases/$(database)/documents/adminUsers/$(request.auth.uid));
+    }
+
+    function isAdmin() {
+      return isSignedIn() && adminDoc().data.active == true;
+    }
+
     function isApproved() {
       return isSignedIn() && userDoc().data.approved == true;
     }
 
     function sameAssignedClass(className) {
-      return isApproved() && userDoc().data.class == className;
+      return isAdmin() || (isApproved() && userDoc().data.class == className);
     }
 
-    match /users/{userId} {
+    match /adminUsers/{userId} {
       allow read: if isSignedIn() && request.auth.uid == userId;
       allow write: if false;
     }
 
+    match /users/{userId} {
+      allow read: if isAdmin() || (isSignedIn() && request.auth.uid == userId);
+      allow update: if isAdmin();
+      allow create, delete: if false;
+    }
+
     match /testSeries/{className} {
       allow read: if sameAssignedClass(className);
-      allow write: if false;
+      allow write: if isAdmin();
 
       match /subjects/{subjectId} {
         allow read: if sameAssignedClass(className);
-        allow write: if false;
+        allow write: if isAdmin();
 
         match /chapters/{chapterId} {
           allow read: if sameAssignedClass(className);
-          allow write: if false;
+          allow write: if isAdmin();
         }
       }
     }

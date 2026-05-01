@@ -10,5 +10,6 @@ export const firebaseConfig = {
 
 export const scoreMoreCollections = {
   users: "users",
-  testSeries: "testSeries"
+  testSeries: "testSeries",
+  adminUsers: "adminUsers"
 };

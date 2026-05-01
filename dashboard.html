@@ -1,14 +1,14 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Test Series Dashboard - ScoreMore Academy</title>
+  <title>Student Dashboard - ScoreMore Academy</title>
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/layout.css" />
   <link rel="stylesheet" href="css/theme-override.css" />
   <style>
-    body { background: #f1f5f9; }
+    body { background: #eef4fb; }
     .auth-screen {
       min-height: calc(100vh - 120px);
       display: flex;
@@ -17,29 +17,54 @@
       padding: 40px 20px;
     }
     .auth-card,
-    .pending-card {
+    .pending-card,
+    .locked-card {
       background: white;
       border: 1px solid var(--border);
-      border-radius: var(--r-2xl);
+      border-radius: 32px;
       padding: 40px 34px;
-      max-width: 480px;
+      max-width: 520px;
       width: 100%;
       text-align: center;
       box-shadow: var(--shadow-lg);
     }
     .auth-icon,
-    .pending-icon { font-size: 2.4rem; margin-bottom: 16px; color: var(--navy); }
+    .pending-icon,
+    .locked-icon {
+      width: 68px;
+      height: 68px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, var(--navy), #2b56c6);
+      color: white;
+      margin: 0 auto 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      font-weight: 800;
+    }
     .auth-card h2,
-    .pending-card h2 { color: var(--navy); margin-bottom: 10px; font-size: 1.6rem; }
+    .pending-card h2,
+    .locked-card h2 {
+      color: var(--navy);
+      margin-bottom: 10px;
+      font-size: 1.8rem;
+    }
     .auth-card p,
-    .pending-card p { font-size: 0.9rem; max-width: 340px; margin: 0 auto 22px; }
+    .pending-card p,
+    .locked-card p {
+      font-size: 0.92rem;
+      max-width: 360px;
+      margin: 0 auto 22px;
+      line-height: 1.7;
+    }
     .google-sign-in {
       display: inline-flex;
       align-items: center;
       gap: 12px;
       background: white;
       border: 1.5px solid var(--border);
-      border-radius: var(--r-md);
+      border-radius: 16px;
       padding: 13px 24px;
       font-family: 'DM Sans', sans-serif;
       font-size: 0.92rem;
@@ -79,96 +104,302 @@
       display: inline-block;
     }
 
-    .dash-layout {
-      max-width: 1000px;
+    .student-shell {
+      max-width: 1360px;
       margin: 0 auto;
-      padding: 36px 28px;
+      padding: 28px 22px 46px;
       display: grid;
-      grid-template-columns: 240px 1fr;
-      gap: 28px;
+      grid-template-columns: 112px minmax(0, 1fr);
+      gap: 24px;
       align-items: start;
     }
-    .dash-sidebar {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: var(--r-xl);
-      overflow: hidden;
+    .student-sidebar {
+      background: #101827;
+      color: white;
+      border-radius: 28px;
+      padding: 18px 14px;
+      min-height: calc(100vh - 180px);
       position: sticky;
       top: 88px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 24px 50px rgba(15, 23, 42, 0.22);
     }
-    .sidebar-header {
-      background: var(--navy);
-      color: white;
-      padding: 18px 20px;
+    .side-brand {
+      text-align: center;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
     }
-    .sidebar-header h4 {
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 3px;
-    }
-    .sidebar-header p { font-size: 0.74rem; opacity: 0.72; margin: 0; }
-    .sidebar-menu { padding: 10px; }
-    .class-btn {
-      width: 100%;
-      text-align: left;
-      background: none;
-      border: none;
-      padding: 10px 14px;
-      border-radius: var(--r-sm);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.83rem;
-      font-weight: 600;
-      color: var(--text);
-      cursor: default;
-      background: var(--navy);
-      color: white;
-    }
-    .user-panel {
-      border-top: 1px solid var(--border);
-      padding: 14px 16px;
+    .side-brand-badge {
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #7062ff, #a78bfa);
+      margin: 0 auto 10px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: center;
+      font-size: 1.05rem;
+      font-weight: 800;
     }
-    .user-panel img {
-      width: 30px;
-      height: 30px;
+    .side-brand small {
+      display: block;
+      font-size: 0.72rem;
+      opacity: 0.7;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .side-nav {
+      display: grid;
+      gap: 12px;
+      margin: 18px 0;
+    }
+    .side-link {
+      text-align: center;
+      padding: 12px 8px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.84);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.18s, transform 0.18s, color 0.18s;
+    }
+    .side-link span {
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 6px;
+      font-weight: 800;
+    }
+    .side-link.active,
+    .side-link:hover {
+      background: white;
+      color: #111827;
+      transform: translateY(-1px);
+    }    .dash-main {
+      min-width: 0;
+    }
+    .welcome-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    .welcome-note {
+      color: var(--blue);
+      font-size: 0.92rem;
+      margin-bottom: 14px;
+    }
+    .series-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 100px;
+      background: white;
+      border: 1px solid #c9d6ea;
+      box-shadow: var(--shadow-sm);
+      color: var(--navy);
+      font-weight: 600;
+    }
+    .series-chip strong {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #22c55e;
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+    .profile-panel {
+      text-align: right;
+      min-width: 220px;
+    }
+    .profile-panel img {
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
       object-fit: cover;
+      margin-top: 8px;
       background: #dbeafe;
-      flex-shrink: 0;
     }
-    .user-panel .uname { font-size: 0.78rem; font-weight: 600; color: var(--navy); }
-    .user-panel .usign { font-size: 0.68rem; color: var(--muted); cursor: pointer; }
-    .user-panel .usign:hover { color: var(--error); }
-
-    .dash-header {
+    .profile-panel .meta-mail { font-size: 0.92rem; color: var(--navy); font-weight: 600; }    .dashboard-grid {
+      display: grid;
+      gap: 22px;
+    }
+    .panel-card {
       background: white;
       border: 1px solid var(--border);
-      border-radius: var(--r-xl);
-      padding: 22px 26px;
-      margin-bottom: 22px;
+      border-radius: 28px;
+      padding: 22px;
+      box-shadow: 0 18px 42px rgba(148, 163, 184, 0.12);
+    }
+    .panel-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    .panel-heading h3 {
+      color: var(--navy);
+      font-size: 1.7rem;
+      margin-bottom: 6px;
+    }
+    .panel-heading p { margin: 0; font-size: 0.84rem; }
+    .panel-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--blue);
+      text-decoration: none;
+      border: 1px solid #c9d6ea;
+      border-radius: 14px;
+      padding: 10px 16px;
+    }
+
+    .filters-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+    .filter-chip {
+      border: 1px solid #c9d6ea;
+      background: white;
+      color: var(--navy);
+      border-radius: 100px;
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .filter-chip.active,
+    .filter-chip:hover {
+      background: #4f46e5;
+      border-color: #4f46e5;
+      color: white;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .stat-card {
+      background: white;
+      border: 1px solid #d6e2f1;
+      border-radius: 24px;
+      padding: 18px 20px;
+    }
+    .stat-card h4 {
+      color: #64748b;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .stat-main {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .stat-main strong {
+      font-size: 2.15rem;
+      color: #0f172a;
+      line-height: 1;
+    }
+    .stat-main span {
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+    .stat-breakdown {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      font-size: 0.82rem;
+      color: #64748b;
+    }
+    .stat-breakdown b { color: var(--navy); }
+
+    .chart-shell {
+      background: linear-gradient(180deg, white, #fbfdff);
+      border: 1px solid #d9e4f2;
+      border-radius: 24px;
+      padding: 20px;
+    }
+    .chart-filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .chart-toggle {
+      border: 1px solid #c9d6ea;
+      background: white;
+      border-radius: 100px;
+      padding: 9px 16px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--navy);
+      cursor: pointer;
+    }
+    .chart-toggle.active {
+      background: #1f2937;
+      color: white;
+      border-color: #1f2937;
+    }
+    .graph-canvas {
+      width: 100%;
+      height: 320px;
+      border-radius: 22px;
+      background:
+        linear-gradient(to top, rgba(148, 163, 184, 0.12) 1px, transparent 1px) 0 0 / 100% 64px,
+        linear-gradient(to right, rgba(148, 163, 184, 0.08) 1px, transparent 1px) 0 0 / 82px 100%,
+        white;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #e2e8f0;
+    }
+    .graph-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .graph-note {
+      margin-top: 10px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .subject-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
       gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
     }
-    .dash-header h2 { font-size: 1.3rem; color: var(--navy); }
-    .dash-header p { font-size: 0.8rem; margin: 2px 0 0; }
     .subject-tabs {
       display: flex;
-      gap: 8px;
+      gap: 10px;
       flex-wrap: wrap;
-      margin-bottom: 22px;
     }
     .subj-tab {
       font-family: 'DM Sans', sans-serif;
       font-size: 0.8rem;
       font-weight: 600;
-      padding: 8px 18px;
+      padding: 10px 18px;
       border: 1.5px solid var(--border);
       border-radius: 100px;
       background: white;
@@ -182,67 +413,167 @@
       color: white;
       border-color: var(--navy);
     }
-
-    .pdf-list { display: flex; flex-direction: column; gap: 10px; }
-    .pdf-item {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: var(--r-lg);
-      padding: 16px 20px;
+    .legend-list {
       display: flex;
-      align-items: center;
-      gap: 16px;
-      transition: box-shadow 0.18s;
+      gap: 10px;
       flex-wrap: wrap;
     }
-    .pdf-item:hover { box-shadow: var(--shadow-md); }
-    .pdf-icon {
-      width: 40px;
-      height: 40px;
-      background: #fee2e2;
-      border-radius: var(--r-sm);
-      display: flex;
+    .legend-item {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      font-size: 0.84rem;
-      font-weight: 800;
-      color: #991b1b;
-      flex-shrink: 0;
-    }
-    .pdf-info { flex: 1; min-width: 240px; }
-    .pdf-title { font-weight: 600; font-size: 0.9rem; color: var(--navy); margin-bottom: 3px; }
-    .pdf-meta { font-size: 0.73rem; color: var(--muted); display: flex; gap: 12px; flex-wrap: wrap; }
-    .pdf-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-    .pdf-btn {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.75rem;
+      gap: 8px;
+      border-radius: 100px;
+      background: #f8fbff;
+      border: 1px solid #dbe8f6;
+      padding: 8px 12px;
+      font-size: 0.74rem;
       font-weight: 600;
-      padding: 7px 14px;
-      border-radius: var(--r-sm);
-      border: 1.5px solid var(--border);
-      background: white;
-      color: var(--text);
-      cursor: pointer;
+      color: #475569;
+    }
+    .legend-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+    }
+    .legend-dot.pdf { background: #ef4444; }
+    .legend-dot.latex { background: #4f46e5; }
+    .legend-dot.timed { background: #10b981; }
+
+    .chapter-groups {
+      display: grid;
+      gap: 22px;
+    }
+    .chapter-group h4 {
+      color: var(--navy);
+      font-size: 1.05rem;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #dce6f3;
+    }
+    .chapter-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .chapter-card {
+      background: linear-gradient(180deg, #f8fbff, #eef4fb);
+      border: 1px solid #dbe7f4;
+      border-radius: 24px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-height: 220px;
+    }
+    .chapter-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .chapter-top h5 {
+      color: #0f172a;
+      font-size: 1rem;
+      line-height: 1.35;
+    }
+    .chapter-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .mode-badge,
+    .status-badge {
+      border-radius: 100px;
+      padding: 5px 10px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .mode-badge.pdf { background: #fee2e2; color: #b91c1c; }
+    .mode-badge.latex { background: #e0e7ff; color: #4338ca; }
+    .mode-badge.timed { background: #dcfce7; color: #15803d; }
+    .status-badge.live { background: #dcfce7; color: #166534; }
+    .status-badge.soon { background: #fef3c7; color: #92400e; }
+    .chapter-meta {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      color: #64748b;
+      font-size: 0.76rem;
+      font-weight: 600;
+    }
+    .chapter-copy {
+      font-size: 0.82rem;
+      color: #475569;
+      line-height: 1.65;
+      min-height: 50px;
+    }
+    .chapter-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+    .action-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 9px 14px;
+      border-radius: 12px;
+      border: 1px solid #d4dfef;
       text-decoration: none;
+      color: var(--navy);
+      background: white;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.18s;
     }
-    .pdf-btn:hover { background: var(--navy); color: white; border-color: var(--navy); }
-    .pdf-btn.primary { background: var(--blue); color: white; border-color: var(--blue); }
-    .pdf-btn.primary:hover { background: var(--navy); border-color: var(--navy); }
-    .pdf-btn.locked {
+    .action-btn.primary {
+      background: var(--blue);
+      color: white;
+      border-color: var(--blue);
+    }
+    .action-btn.locked {
       background: #f8fafc;
-      color: var(--muted);
-      border-color: var(--border);
+      color: #94a3b8;
+      border-color: #dbe2ea;
       cursor: not-allowed;
     }
-    .pdf-btn.locked:hover {
-      background: #f8fafc;
-      color: var(--muted);
-      border-color: var(--border);
+
+    .future-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
     }
+    .future-card {
+      background: white;
+      border: 1px solid #dce6f3;
+      border-radius: 22px;
+      padding: 20px;
+    }
+    .future-card h4 {
+      color: var(--navy);
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+    .future-card p {
+      font-size: 0.82rem;
+      color: #64748b;
+      line-height: 1.65;
+      margin-bottom: 12px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 50px 20px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+    }
+    .empty-state .empty-icon { font-size: 1rem; font-weight: 800; color: var(--blue); margin-bottom: 12px; }
+    .empty-state h4 { color: var(--navy); margin-bottom: 6px; }
+    .empty-state p { font-size: 0.84rem; }
     .loading-state {
       text-align: center;
       padding: 60px 20px;
@@ -259,21 +590,35 @@
       margin: 0 auto 14px;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .empty-state {
-      text-align: center;
-      padding: 50px 20px;
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: var(--r-xl);
-    }
-    .empty-state .empty-icon { font-size: 1rem; font-weight: 800; color: var(--blue); margin-bottom: 12px; }
-    .empty-state h4 { color: var(--navy); margin-bottom: 6px; }
-    .empty-state p { font-size: 0.84rem; }
 
-    @media (max-width: 760px) {
-      .dash-layout { grid-template-columns: 1fr; }
-      .dash-sidebar { position: static; }
-      .auth-card, .pending-card { padding: 32px 24px; }
+    @media (max-width: 1100px) {
+      .stats-grid,
+      .future-grid,
+      .chapter-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 900px) {
+      .student-shell {
+        grid-template-columns: 1fr;
+      }
+      .student-sidebar {
+        min-height: auto;
+        position: static;
+      }
+      .side-nav {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 680px) {
+      .stats-grid,
+      .future-grid,
+      .chapter-grid,
+      .benefit-grid {
+        grid-template-columns: 1fr;
+      }
+      .side-nav,
+      .profile-panel {
+        text-align: left;
+      }
     }
   </style>
 </head>
@@ -284,8 +629,8 @@
   <div id="stateLoading" class="auth-screen" style="display:none;">
     <div class="auth-card">
       <div class="auth-icon">SM</div>
-      <h2>Checking access</h2>
-      <p>Connecting to Firebase and checking whether this Google account is approved for the test series dashboard.</p>
+      <h2>Loading dashboard</h2>
+      <p>Checking your access, assigned class, subjects, and chapter content.</p>
       <div class="loading-state" style="padding: 12px 0 0;">
         <div class="spinner"></div>
       </div>
@@ -295,13 +640,13 @@
   <div id="stateSignIn" class="auth-screen">
     <div class="auth-card">
       <div class="auth-icon">GO</div>
-      <h2>Test Series Access</h2>
-      <p>Sign in with Google to access your chapter-wise test papers and answer-key permissions.</p>
+      <h2>Student Dashboard Access</h2>
+      <p>Sign in with Google to access chapter-wise PDFs now, and future Work Practice and timed tests from the same dashboard.</p>
       <button class="google-sign-in" id="googleSignInBtn" type="button">
         <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
         Continue with Google
       </button>
-      <div class="auth-note">No access yet? Complete payment on WhatsApp and then you can be approved manually.</div>
+      <div class="auth-note">No access yet? Buy a plan first, then your account can be approved manually.</div>
     </div>
   </div>
 
@@ -309,52 +654,154 @@
     <div class="pending-card">
       <div class="pending-icon">PA</div>
       <h2>Access Pending</h2>
-      <p>This Google account is signed in, but access is not approved yet.</p>
+      <p>This Google account is signed in, but approval is still pending. Once approved, this dashboard will unlock automatically.</p>
       <div class="user-chip">
         <img id="pendingPhoto" src="" alt="" />
         <div class="uname" id="pendingName"></div>
       </div>
-      <a href="https://wa.me/919212395639?text=Hi%2C%20I%20have%20signed%20in%20to%20the%20ScoreMore%20dashboard%20and%20need%20my%20test-series%20access%20approved." target="_blank" rel="noreferrer" class="btn btn-wa btn-lg">WhatsApp to complete access</a>
+      <a href="https://wa.me/919212395639?text=Hi%2C%20I%20have%20signed%20in%20to%20the%20ScoreMore%20student%20dashboard%20and%20need%20my%20access%20approved." target="_blank" rel="noreferrer" class="btn btn-wa btn-lg">Request access on WhatsApp</a>
       <span class="sign-out-link" id="pendingSignOut">Sign out</span>
     </div>
   </div>
 
+  <div id="stateLocked" class="auth-screen" style="display:none;">
+    <div class="locked-card">
+      <div class="locked-icon">!</div>
+      <h2>No class assigned yet</h2>
+      <p>Your account is approved, but no class or subject access has been attached yet. Ask the admin to assign your class before using the dashboard.</p>
+      <span class="sign-out-link" id="lockedSignOut">Sign out</span>
+    </div>
+  </div>
+
   <div id="stateDashboard" style="display:none;">
-    <div class="dash-layout">
-      <div class="dash-sidebar">
-        <div class="sidebar-header">
-          <h4>Test Series</h4>
-          <p>Your assigned class</p>
+    <div class="student-shell">
+      <aside class="student-sidebar">
+        <div>
+          <div class="side-brand">
+            <div class="side-brand-badge">SM</div>
+            <small>Student</small>
+          </div>
+
+          <nav class="side-nav">
+            <a class="side-link active" href="#overview"><span>01</span>Home</a>
+            <a class="side-link" href="#papers"><span>02</span>All Tests</a>
+            <a class="side-link" href="#futureModes"><span>03</span>Modes</a>
+            <a class="side-link" href="#progressGraph"><span>04</span>Analysis</a>
+          </nav>
         </div>
-        <div class="sidebar-menu" id="classMenu"></div>
-        <div class="user-panel">
-          <img id="dashUserPhoto" src="" alt="" />
+      </aside>
+
+      <main class="dash-main">
+        <div class="welcome-row" id="overview">
           <div>
-            <div class="uname" id="dashUserName"></div>
-            <div class="usign" id="dashSignOut">Sign out</div>
+            <div class="welcome-note" id="welcomeNote">Hello</div>
+            <div class="series-chip" id="seriesChip"><strong>âœ“</strong><span>Your assigned class dashboard</span></div>
+          </div>
+          <div class="profile-panel">
+            <div class="meta-mail" id="dashUserName"></div>
+                        <img id="dashUserPhoto" src="" alt="" />
+            <div><span class="sign-out-link" id="dashSignOut">Sign out</span></div>
           </div>
         </div>
-      </div>
 
-      <div class="dash-main">
-        <div class="dash-header">
-          <div>
-            <h2 id="dashClassTitle">Your Test Series</h2>
-            <p id="dashClassSub">Choose a subject below to see chapter-wise PDFs.</p>
-          </div>
-          <span class="tag tag-green">Access Approved</span>
+        <div class="dashboard-grid">
+          <section class="panel-card">
+            <div class="panel-heading">
+              <div>
+                <h3>Quick Analysis</h3>
+                <p>Current content view supports PDFs today, with space reserved for timed and Work Practice based tests next.</p>
+              </div>
+              <a href="#progressGraph" class="panel-link">View Detailed Analysis â†’</a>
+            </div>
+
+            <div class="filters-row" id="modeFilters">
+              <button class="filter-chip active" type="button" data-mode="all">All Tests</button>
+              <button class="filter-chip" type="button" data-mode="pdf">PDFs</button>
+              <button class="filter-chip" type="button" data-mode="latex">Work Practice</button>
+              <button class="filter-chip" type="button" data-mode="timed">Timed Tests</button>
+            </div>
+
+            <div class="stats-grid" id="statsGrid">
+              <div class="stat-card">
+                <h4>Published Chapters</h4>
+                <div class="stat-main"><strong>0</strong><span>ready</span></div>
+                <div class="stat-breakdown"><span>PDF <b>0</b></span><span>Interactive <b>0</b></span></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel-card" id="progressGraph">
+            <div class="panel-heading">
+              <div>
+                <h3>Score and Progress Timeline</h3>
+                <p>This graph is already shaped for timed-test analytics later, while still reflecting your current chapter library now.</p>
+              </div>
+            </div>
+            <div class="chart-filters" id="chartFilters">
+              <button class="chart-toggle active" type="button" data-chart="overall">Overall</button>
+              <button class="chart-toggle" type="button" data-chart="pdf">PDF</button>
+              <button class="chart-toggle" type="button" data-chart="latex">Work Practice</button>
+              <button class="chart-toggle" type="button" data-chart="timed">Timed</button>
+            </div>
+            <div class="chart-shell">
+              <div class="graph-canvas" id="graphCanvas"></div>
+              <div class="graph-note">Live attempt analytics will become more meaningful once timed and online tests start storing attempt data.</div>
+            </div>
+          </section>
+
+          <section class="panel-card" id="papers">
+            <div class="panel-heading">
+              <div>
+                <h3 id="dashClassTitle">Your Test Series</h3>
+                <p id="dashClassSub">Choose a subject below to see chapter-wise papers and upcoming online-test formats.</p>
+              </div>
+            </div>
+
+            <div class="subject-row">
+              <div class="subject-tabs" id="subjectTabs" style="display:none;"></div>
+              <div class="legend-list">
+                <span class="legend-item"><span class="legend-dot pdf"></span>PDF</span>
+                <span class="legend-item"><span class="legend-dot latex"></span>Work Practice</span>
+                <span class="legend-item"><span class="legend-dot timed"></span>Timed</span>
+              </div>
+            </div>
+
+            <div id="contentContainer">
+              <div class="empty-state">
+                <div class="empty-icon">SM</div>
+                <h4>Waiting for subject data</h4>
+                <p>Once your class and subjects load, the chapter library will appear here.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel-card" id="futureModes">
+            <div class="panel-heading">
+              <div>
+                <h3>Practice Modes</h3>
+                <p>The GUI below is prepared for both your current PDF flow and the online test system planned next.</p>
+              </div>
+            </div>
+            <div class="future-grid">
+              <div class="future-card">
+                <h4>PDF Practice</h4>
+                <p>Students can open chapter-wise papers, download answer keys, and revise offline.</p>
+                <span class="tag tag-green">Live Now</span>
+              </div>
+              <div class="future-card">
+                <h4>Work Practice Mode</h4>
+                <p>Use the same chapter cards later for structured online practice without changing the overall dashboard layout.</p>
+                <span class="tag">Planned</span>
+              </div>
+              <div class="future-card">
+                <h4>Timed Online Tests</h4>
+                <p>Ready for countdown timers, auto-submit, attempts, performance analytics, and detailed mistake review.</p>
+                <span class="tag">Planned</span>
+              </div>
+            </div>
+          </section>
         </div>
-
-        <div class="subject-tabs" id="subjectTabs" style="display:none;"></div>
-
-        <div id="pdfContainer">
-          <div class="empty-state">
-            <div class="empty-icon">PDF</div>
-            <h4>Waiting for class data</h4>
-            <p>Once your approved class loads, subjects and chapter papers will appear here.</p>
-          </div>
-        </div>
-      </div>
+      </main>
     </div>
   </div>
 
@@ -365,3 +812,5 @@
   <script>injectLayout('test-series');</script>
 </body>
 </html>
+
+
